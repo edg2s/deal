@@ -1,0 +1,168 @@
+body {
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 0;
+}
+
+.game-columns {
+	display: flex;
+}
+
+.game-left,
+.game-right {
+	padding: 1em;
+}
+
+.game-left {
+	flex-grow: 1;
+	padding-right: 0;
+}
+
+.game-right-inner {
+	position: sticky;
+	top: 1em;
+}
+
+.game-controls {
+	position: sticky;
+	top: 0;
+	padding: 0.5em 0;
+	background: #fff;
+	border-bottom: 1px solid #999;
+	margin-bottom: -1px;
+}
+
+.game-hand,
+.game-money,
+.game-property {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.game-hand {
+	border-top: 1px solid #999;
+	box-shadow: 0 0 5px rgba( 0, 0, 0, 0.25 );
+	padding: 1em;
+	background: #eee;
+	position: sticky;
+	bottom: -20em;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 0.85em;
+}
+
+.game-hand:before {
+	content: attr( data-hand );
+	display: block;
+}
+
+.game-user,
+.game-log,
+.game-played {
+	padding: 1em;
+	box-sizing: border-box;
+}
+
+.game-user:before,
+.game-log:before,
+.game-played:before {
+	display: block;
+	margin-bottom: 1em;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.game-user {
+	margin-bottom: 1em;
+	border: 1px solid #999;
+	background: #eef;
+	font-size: 0.7em;
+	width: 100%;
+}
+
+.game-user:before {
+	content: attr( data-user );
+}
+
+.game-log {
+	margin: 1em 0;
+	border: 1px solid #999;
+	background: #ffe;
+	font-size: 0.75em;
+	max-height: 30em;
+	overflow-y: auto;
+}
+
+.game-message {
+	margin-bottom: 0.5em;
+}
+
+.game-message:first-child {
+	font-weight: bold;
+}
+
+.game-log:before {
+	content: 'Log';
+}
+
+.game-played {
+	margin: 1em 0;
+	border: 1px solid #999;
+	background: #efe;
+	font-size: 0.75em;
+	white-space: nowrap;
+	min-width: 33em;
+	min-height: 30em;
+}
+
+.game-played:before {
+	content: 'Recently played actions';
+}
+
+.game-played .card-container + .card-container {
+	margin-left: -11em;
+}
+
+.game-money,
+.game-property {
+	display: inline-block;
+	margin: 0 1em 1em 0;
+	padding: 0.5em;
+	background: rgba( 255, 255, 255, 0.5 );
+	max-width: calc( 100% - 2em );
+	min-width: 20em;
+}
+
+.game-money:before,
+.game-property:before {
+	display: block;
+	font-size: 1.2em;
+}
+
+.game-money:before {
+	content: 'Money';
+}
+
+.game-property:before {
+	content: 'Property';
+}
+
+.game-property {
+	min-height: 27em;
+	vertical-align: top;
+}
+
+.game-money {
+	height: 20em;
+	overflow-y: hidden;
+	padding-right: 8em;
+}
+
+.game-money .card-container + .card-container {
+	margin-left: -6em;
+}
+
+.game-money .card {
+	transform: rotate( -90deg );
+	transform-origin: 8em 8em;
+}

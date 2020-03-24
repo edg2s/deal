@@ -1,0 +1,16 @@
+{
+	"scripts": {
+		"start": "node index.js",
+		"test": "eslint --cache ."
+	},
+	"dependencies": {
+		"ejs": "^3.0.1",
+		"express": "^4.17.1",
+		"oojs": "^3.0.1",
+		"shuffle-array": "^1.0.1",
+		"socket.io": "^2.3.0"
+	},
+	"devDependencies": {
+		"eslint-config-wikimedia": "^0.15.0"
+	}
+}

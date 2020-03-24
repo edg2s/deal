@@ -1,0 +1,362 @@
+.card-container {
+	position: relative;
+	display: inline-block;
+	margin: 1em;
+}
+
+.card-container:hover {
+	z-index: 1;
+}
+
+.card-container + .card-container {
+	margin-left: -3.5em;
+}
+
+.card {
+	background: #fff;
+	position: relative;
+	box-shadow: 0 0 0.3em rgba( 0, 0, 0, 0.25 );
+	border-radius: 0.5em;
+	border: 1px solid #000;
+	padding: 1em;
+	white-space: normal;
+	cursor: default;
+	overflow: hidden;
+}
+
+.card-inner {
+	width: 14em;
+	height: 21em;
+	border: 1px solid #000;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.card-buttons {
+	position: absolute;
+	bottom: -0.5em;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.card-buttons > .oo-ui-buttonGroupWidget {
+	box-shadow: 0 0 0.3em rgba( 0, 0, 0, 0.25 );
+}
+
+.game-money .card-buttons {
+	bottom: 6.5em;
+}
+
+.card-value {
+	position: absolute;
+	top: 0.2em;
+	left: 0.2em;
+	width: 3em;
+	height: 3em;
+	line-height: 3em;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid #000;
+	background: #fff;
+	font-variant: small-caps;
+	transform: rotate( 90deg );
+}
+
+.card-description {
+	text-align: center;
+	margin: 1em auto 0 auto;
+	padding: 0 1em;
+	font-size: 0.95em;
+	line-height: 1.4em;
+}
+
+.card-wildcard .card-value,
+.card-property .card-value {
+	transform: none;
+}
+
+.card-title {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+/* Circular titles */
+.card-action .card-title,
+.card-money .card-title,
+.card-rent .card-title {
+	margin: 0 auto;
+	width: 10em;
+	height: 10em;
+	padding: 0.5em;
+	box-sizing: border-box;
+	border-radius: 50%;
+	box-shadow: 0 0 0 0.3em #000;
+}
+
+/* Actions */
+
+.card-action .card-title {
+	background: #fff;
+}
+
+.card-action .card-icon {
+	font-size: 3em;
+	line-height: 1em;
+}
+
+.card-action .card-text {
+	font-size: 1.5em;
+}
+
+.card-action-double .card-inner,
+.card-action-go .card-inner {
+	background: #eec;
+}
+
+.card-action-sly .card-inner,
+.card-action-forced .card-inner {
+	background: #fdc;
+}
+
+.card-action-birthday .card-inner {
+	background: #fcc;
+}
+
+.card-action-collector .card-inner {
+	background: #ced;
+}
+
+.card-action-hotel .card-inner {
+	background: #eec;
+}
+
+.card-action-house .card-inner {
+	background: #dec;
+}
+
+.card-action-no .card-inner {
+	background: #aac;
+}
+
+.card-action-breaker .card-inner {
+	background: #dac;
+}
+
+/* Money */
+
+.card-money .card-title {
+	font-variant: small-caps;
+	background: rgba( 255, 255, 255, 0.5 );
+}
+
+.card-money .card-text {
+	font-size: 3em;
+	transform: rotate( 90deg );
+}
+
+.card-money-10 .card-inner {
+	background: #fa3;
+}
+
+.card-money-5 .card-inner {
+	background: #a7d;
+}
+
+.card-money-4 .card-inner {
+	background: #bcf;
+}
+
+.card-money-3 .card-inner {
+	background: #dc8;
+}
+
+.card-money-2 .card-inner {
+	background: #fba;
+}
+
+.card-money-1 .card-inner {
+	background: #fea;
+}
+
+/* Rent */
+
+.card-rent .card-inner {
+	background: #efb;
+}
+
+.card-rent .card-title {
+	border-width: 1.5em;
+	border-style: solid;
+	background: #fff;
+}
+
+.card-rent .card-text {
+	font-size: 2em;
+}
+
+.card-rent-dblue-green {
+	border-color: #44f #44f #090 #090;
+}
+
+.card-rent-lblue-brown {
+	border-color: #5bf #5bf #a51 #a51;
+}
+
+.card-rent-orange-pink {
+	border-color: #fa2 #fa2 #f6b #f6b;
+}
+
+.card-rent-yellow-red {
+	border-color: #fe0 #fe0 #c00 #c00;
+}
+
+.card-rent-utility-station {
+	border-color: #8dc #8dc #000 #000;
+}
+
+.card-rent-all {
+	border-color: #fe0 #c00 #44f #090;
+}
+
+/* Properties */
+
+.card-property .card-inner {
+	justify-content: start;
+}
+
+.card-property .card-title {
+	text-align: center;
+	padding: 0.5em 1.5em;
+	border: 1px solid #000;
+	margin: 0.5em;
+	font-weight: bold;
+	height: 2em;
+}
+
+.card-property-dblue .card-title {
+	background-color: #44f;
+	color: #fff;
+}
+
+.card-property-green .card-title {
+	background-color: #090;
+}
+
+.card-property-lblue .card-title {
+	background-color: #5bf;
+}
+
+.card-property-brown .card-title {
+	background-color: #a51;
+	color: #fff;
+}
+
+.card-property-orange .card-title {
+	background-color: #fa2;
+}
+
+.card-property-pink .card-title {
+	background-color: #f6b;
+}
+
+.card-property-yellow .card-title {
+	background-color: #fe0;
+}
+
+.card-property-red .card-title {
+	background-color: #c00;
+	color: #fff;
+}
+
+.card-property-utility .card-title {
+	background-color: #8dc;
+}
+
+.card-property-station .card-title {
+	background-color: #000;
+	color: #fff;
+}
+
+.card-property ol {
+	text-align: right;
+	font-size: 1.5em;
+	padding: 0 0.5em 0 1.5em;
+	line-height: 2em;
+	margin: 0.5em 0;
+}
+
+.card-property ol li {
+	position: relative;
+}
+
+.card-property ol li:before {
+	position: absolute;
+	left: 0;
+	content: '. . . . . . . .';
+	float: left;
+	white-space: nowrap;
+}
+
+/* Wild cards */
+
+.card-wildcard .card-inner {
+	justify-content: start;
+}
+
+.card-wildcard ol {
+	width: 3em;
+	line-height: 1.5em;
+}
+
+.card-wildcard ol li:before {
+	content: '. .';
+}
+
+.card-wildcard-1 {
+	position: absolute;
+	width: 14em;
+	box-sizing: border-box;
+	transform: rotate( 180deg );
+	bottom: 1em;
+}
+
+.card-wildcard-all .card-title {
+	text-align: center;
+	border: 1px solid #000;
+	margin: 0.5em;
+	font-weight: bold;
+	/* stylelint-disable */
+	background-image: linear-gradient(
+		90deg,
+		#44f 10%,
+		#090 10%,
+		#090 20%,
+		#5bf 20%,
+		#5bf 30%,
+		#a51 30%,
+		#a51 40%,
+		#fa2 40%,
+		#fa2 50%,
+		#f6b 50%,
+		#f6b 60%,
+		#fe0 60%,
+		#fe0 70%,
+		#c00 70%,
+		#c00 80%,
+		#8dc 80%,
+		#8dc 90%,
+		#000 90%
+	);
+	/* stylelint-enable */
+}
+
+.card-wildcard-all .card-title .text {
+	background: #fff;
+	margin: 1em 0;
+	padding: 0.5em 0;
+}

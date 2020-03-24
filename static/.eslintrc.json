@@ -1,0 +1,12 @@
+{
+	"root": true,
+	"extends": [
+		"wikimedia/client",
+		"wikimedia/jquery"
+	],
+	"globals": {
+		"OO": "readonly",
+		"io": "readonly",
+		"Cards": "readonly"
+	}
+}
