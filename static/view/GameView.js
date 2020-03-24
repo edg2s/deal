@@ -29,6 +29,7 @@ Cards.GameView = function ( model ) {
 	this.$played = $( '<div>' ).addClass( 'game-played' );
 	this.$users = $( '<div>' ).addClass( 'game-users' );
 	this.hand = new Cards.CardList( { classes: [ 'game-hand' ] } );
+	this.hand.on( 'reorder', this.onReorder.bind( this, 'hidden' ) );
 
 	this.$element.addClass( 'game' ).append(
 		$( '<div>' ).addClass( 'game-columns' ).append(
@@ -124,9 +125,20 @@ Cards.GameView.prototype.onUsers = function () {
 	userIds.forEach( function ( userId ) {
 		var items,
 			$user = $( '<div>' ).addClass( 'game-user' ),
-			property = new Cards.CardList( { classes: [ 'game-property' ] } ),
-			money = new Cards.CardList( { classes: [ 'game-money' ] } ),
-			isCurrentUser = userId === localStorage.getItem( 'cards-userId' );
+			isCurrentUser = userId === localStorage.getItem( 'cards-userId' ),
+			property = new Cards.CardList( {
+				classes: [ 'game-property' ],
+				draggable: isCurrentUser
+			} ),
+			money = new Cards.CardList( {
+				classes: [ 'game-money' ],
+				draggable: isCurrentUser
+			} );
+
+		if ( isCurrentUser ) {
+			property.on( 'reorder', view.onReorder.bind( view, 'property' ) );
+			money.on( 'reorder', view.onReorder.bind( view, 'money' ) );
+		}
 
 		$user.append(
 			property.$element,
@@ -146,6 +158,10 @@ Cards.GameView.prototype.onUsers = function () {
 		money.addItems( items );
 		view.$users.append( $user );
 	} );
+};
+
+Cards.GameView.prototype.onReorder = function ( location, card, index ) {
+	this.emit( 'cardAction', 'reorder', location, card.model.id, index );
 };
 
 Cards.GameView.prototype.onClearClick = function () {

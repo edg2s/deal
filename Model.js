@@ -96,6 +96,29 @@ Model.prototype.log = function ( message ) {
 	this.emit( 'log', message );
 };
 
+Model.prototype.reorder = function ( userId, location, cardId, index ) {
+	if ( ![ 'hidden', 'property', 'money' ].includes( location ) ) {
+		console.log( 'reorder: location ' + location + ' not found' );
+		return;
+	}
+
+	const hand = this.getHand( userId )[ location ];
+	const cardIndex = hand.indexOf( cardId );
+	if ( cardIndex !== -1 ) {
+		hand.splice( cardIndex, 1 );
+		if ( index > cardIndex ) {
+			// Adjust for removal
+			index--;
+		}
+		hand.splice( index, 0, cardId );
+		if ( location !== 'hidden' ) {
+			this.emit( 'cards' );
+		}
+	} else {
+		console.log( 'reorder: card not found in hand' );
+	}
+};
+
 Model.prototype.move = function ( cardId, from, to, userId, message ) {
 	const cardIndex = from.indexOf( cardId );
 	this.log( this.users[ userId ] + ' ' + message.replace( '%card', ' %card-' + cardId ) );
@@ -104,7 +127,7 @@ Model.prototype.move = function ( cardId, from, to, userId, message ) {
 		to.push( cardId );
 		this.emit( 'cards' );
 	} else {
-		this.log( 'Error: Couldn\'t move card' );
+		this.log( 'move: card not found in hand' );
 	}
 };
 

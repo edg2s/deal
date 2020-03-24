@@ -101,6 +101,7 @@ function createServer( app ) {
 				case 'passMoney':
 				case 'undo':
 				case 'discard':
+				case 'reorder':
 					model[ command ].apply( model, [ userId ].concat( args ) );
 					break;
 			}
