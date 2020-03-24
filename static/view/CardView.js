@@ -52,7 +52,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 			this.model.type === 'wildcard' && this.model.name !== 'all' &&
 			( isCurrentUser || location === 'hand' )
 		) {
-			items.push( rotateButton );
+			// items.push( rotateButton );
 		}
 		if ( location !== 'hand' && isCurrentUser ) {
 			items.push( passButton );
