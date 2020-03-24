@@ -12,19 +12,16 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	this.location = location;
 
 	this.$inner = $( '<div>' ).addClass( 'card-inner' );
-	if ( this.model.value ) {
-		this.$inner.append(
-			$( '<div>' ).addClass( 'card-value' ).text(
-				Cards.currency( this.model.value )
-			)
-		);
-	}
 
 	this.$card = $( '<div>' )
 		.addClass( 'card card-' + this.model.type )
 		.append( this.$inner );
 
 	this.$element.addClass( 'card-container' ).append( this.$card );
+
+	if ( this.gameView.model.cards.rotated[ this.model.id ] ) {
+		this.$card.addClass( 'card-rotated' );
+	}
 
 	playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
 	moneyButton = new OO.ui.ButtonWidget( { label: Cards.data.currency[ Cards.locale ], title: 'Play as money' } );
@@ -35,7 +32,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 
 	playButton.on( 'click', this.onPlay.bind( this ) );
 	moneyButton.on( 'click', this.emit.bind( this, 'action', 'money', this.model.id ) );
-	rotateButton.on( 'click', this.emit.bind( this, 'action', 'rotate', this.model.id ) );
+	rotateButton.on( 'click', this.onRotate.bind( this ) );
 	discardButton.on( 'click', this.onDiscard.bind( this ) );
 	passButton.on( 'click', this.onPass.bind( this ) );
 	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, this.location ) );
@@ -52,7 +49,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 			this.model.type === 'wildcard' && this.model.name !== 'all' &&
 			( isCurrentUser || location === 'hand' )
 		) {
-			// items.push( rotateButton );
+			items.push( rotateButton );
 		}
 		if ( location !== 'hand' && isCurrentUser ) {
 			items.push( passButton );
@@ -158,6 +155,13 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 			);
 			break;
 	}
+
+	if ( this.model.value ) {
+		this.$inner.append(
+			$( '<div>' ).addClass( 'card-value' ).text( Cards.currency( this.model.value ) ),
+			$( '<div>' ).addClass( 'card-value' ).text( Cards.currency( this.model.value ) )
+		);
+	}
 };
 
 OO.inheritClass( Cards.CardView, OO.ui.Widget );
@@ -199,6 +203,12 @@ Cards.CardView.prototype.onDiscard = function () {
 			view.emit( 'action', 'discard', view.model.id );
 		}
 	} );
+};
+
+Cards.CardView.prototype.onRotate = function () {
+	this.emit( 'action', 'rotate', this.model.id );
+	// eslint-disable-next-line no-jquery/no-class-state
+	this.$card.toggleClass( 'card-rotated' );
 };
 
 Cards.CardView.prototype.onPass = function () {

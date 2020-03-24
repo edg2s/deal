@@ -97,6 +97,7 @@ function createServer( app ) {
 				case 'property':
 				case 'money':
 				case 'action':
+				case 'rotate':
 				case 'passProperty':
 				case 'passMoney':
 				case 'undo':

@@ -23,6 +23,10 @@
 	overflow: hidden;
 }
 
+.card-rotated {
+	transform: rotate( 180deg );
+}
+
 .card-inner {
 	width: 14em;
 	height: 21em;
@@ -31,6 +35,7 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	position: relative;
 }
 
 .card-buttons {
@@ -51,8 +56,8 @@
 
 .card-value {
 	position: absolute;
-	top: 0.2em;
-	left: 0.2em;
+	top: -0.8em;
+	left: -0.8em;
 	width: 3em;
 	height: 3em;
 	line-height: 3em;
@@ -62,6 +67,13 @@
 	background: #fff;
 	font-variant: small-caps;
 	transform: rotate( 90deg );
+}
+
+.card-value + .card-value {
+	top: auto;
+	left: auto;
+	bottom: -0.8em;
+	right: -0.8em;
 }
 
 .card-description {
@@ -318,10 +330,10 @@
 
 .card-wildcard-1 {
 	position: absolute;
-	width: 14em;
+	width: calc( 14em - 2px );
 	box-sizing: border-box;
 	transform: rotate( 180deg );
-	bottom: 1em;
+	bottom: 0;
 }
 
 .card-wildcard-all .card-title {

@@ -16,7 +16,8 @@ Model.prototype.clear = function () {
 	this.cards = {
 		deck: shuffle( Array.from( Array( 106 ).keys() ) ),
 		played: [],
-		hands: {}
+		hands: {},
+		rotated: {}
 	};
 	this.state = 'init';
 	this.log( 'Game cleared' );
@@ -169,6 +170,15 @@ Model.prototype.discard = function ( userId, cardId ) {
 		userId,
 		'discarded a card'
 	);
+};
+
+Model.prototype.rotate = function ( userId, cardId ) {
+	if ( cardId in this.cards.rotated ) {
+		delete this.cards.rotated[ cardId ];
+	} else {
+		this.cards.rotated[ cardId ] = true;
+	}
+	this.emit( 'cards' );
 };
 
 Model.prototype.passProperty = function ( userId, cardId, targetUserid ) {
