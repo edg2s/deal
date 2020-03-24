@@ -1,4 +1,4 @@
-Cards.CardView = function ( clientView, id, location, isCurrentUser ) {
+Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	var color, $rent, actionData, buttons, items,
 		playButton, moneyButton, rotateButton, passButton, discardButton, undoButton,
 		cardView = this;
@@ -6,7 +6,7 @@ Cards.CardView = function ( clientView, id, location, isCurrentUser ) {
 	Cards.CardView.super.call( this );
 	OO.ui.mixin.DraggableElement.call( this );
 
-	this.clientView = clientView;
+	this.gameView = gameView;
 	this.model = new Cards.CardModel( id );
 	// this.card = Cards.data.cards[ id ];
 	this.location = location;
@@ -188,18 +188,18 @@ Cards.CardView.prototype.onPlay = function () {
 Cards.CardView.prototype.onPass = function () {
 	var view = this,
 		cardModel = this.model,
-		clientModel = this.clientView.model,
+		gameModel = this.gameView.model,
 		actions = [
 			{ action: 'cancel', label: 'Cancel', flags: [ 'destructive' ] }
 		];
 
-	Object.keys( clientModel.users ).forEach( function ( userId ) {
-		var hand = clientModel.getHand( userId );
+	Object.keys( gameModel.users ).forEach( function ( userId ) {
+		var hand = gameModel.getHand( userId );
 		if (
 			hand.property.indexOf( cardModel.id ) === -1 &&
 			hand.money.indexOf( cardModel.id ) === -1
 		) {
-			actions.push( { action: userId, label: clientModel.users[ userId ] } );
+			actions.push( { action: userId, label: gameModel.users[ userId ] } );
 		}
 	} );
 

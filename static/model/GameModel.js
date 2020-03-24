@@ -1,4 +1,4 @@
-Cards.ClientModel = function () {
+Cards.GameModel = function () {
 	OO.EventEmitter.call( this );
 
 	this.cards = {};
@@ -7,29 +7,29 @@ Cards.ClientModel = function () {
 	this.state = 'init';
 };
 
-OO.mixinClass( Cards.ClientModel, OO.EventEmitter );
+OO.mixinClass( Cards.GameModel, OO.EventEmitter );
 
-Cards.ClientModel.prototype.setCards = function ( cards ) {
+Cards.GameModel.prototype.setCards = function ( cards ) {
 	this.cards = cards;
 	this.emit( 'cards' );
 };
 
-Cards.ClientModel.prototype.setUsers = function ( users ) {
+Cards.GameModel.prototype.setUsers = function ( users ) {
 	this.users = users;
 	this.emit( 'users' );
 };
 
-Cards.ClientModel.prototype.setHand = function ( hand ) {
+Cards.GameModel.prototype.setHand = function ( hand ) {
 	this.hand = hand;
 	this.emit( 'hand' );
 };
 
-Cards.ClientModel.prototype.setState = function ( state ) {
+Cards.GameModel.prototype.setState = function ( state ) {
 	this.state = state;
 	this.emit( 'state' );
 };
 
-Cards.ClientModel.prototype.getHand = function ( userId ) {
+Cards.GameModel.prototype.getHand = function ( userId ) {
 	return this.cards.hands[ userId ] || {
 		property: [],
 		money: [],

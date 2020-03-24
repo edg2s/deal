@@ -1,7 +1,7 @@
 ( function () {
 	var promise = $.Deferred().resolve().promise(),
-		model = new Cards.ClientModel(),
-		view = new Cards.ClientView( model ),
+		model = new Cards.GameModel(),
+		view = new Cards.GameView( model ),
 		userName = localStorage.getItem( 'cards-userName' ),
 		// eslint-disable-next-line no-jquery/no-global-selector
 		$game = $( '#game' );

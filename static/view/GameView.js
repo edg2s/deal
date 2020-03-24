@@ -1,7 +1,7 @@
-Cards.ClientView = function ( model ) {
+Cards.GameView = function ( model ) {
 	var view = this;
 
-	Cards.ClientView.super.call( this );
+	Cards.GameView.super.call( this );
 
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
@@ -54,9 +54,9 @@ Cards.ClientView = function ( model ) {
 	this.updateButtons();
 };
 
-OO.inheritClass( Cards.ClientView, OO.ui.Widget );
+OO.inheritClass( Cards.GameView, OO.ui.Widget );
 
-Cards.ClientView.prototype.updateButtons = function () {
+Cards.GameView.prototype.updateButtons = function () {
 	this.startButton.setDisabled(
 		this.model.state === 'started' ||
 		Object.keys( this.model.users ).length <= 1
@@ -66,7 +66,7 @@ Cards.ClientView.prototype.updateButtons = function () {
 	);
 };
 
-Cards.ClientView.prototype.log = function ( message ) {
+Cards.GameView.prototype.log = function ( message ) {
 	message = message.replace(
 		/%card-([0-9]+)/,
 		function () {
@@ -78,7 +78,7 @@ Cards.ClientView.prototype.log = function ( message ) {
 	);
 };
 
-Cards.ClientView.prototype.onCards = function () {
+Cards.GameView.prototype.onCards = function () {
 	var view = this;
 
 	this.$played.empty();
@@ -92,11 +92,11 @@ Cards.ClientView.prototype.onCards = function () {
 	this.onUsers();
 };
 
-Cards.ClientView.prototype.onState = function () {
+Cards.GameView.prototype.onState = function () {
 	this.updateButtons();
 };
 
-Cards.ClientView.prototype.onHand = function () {
+Cards.GameView.prototype.onHand = function () {
 	var items,
 		view = this;
 
@@ -110,7 +110,7 @@ Cards.ClientView.prototype.onHand = function () {
 	this.hand.clearItems().addItems( items );
 };
 
-Cards.ClientView.prototype.onUsers = function () {
+Cards.GameView.prototype.onUsers = function () {
 	var view = this,
 		currentUserId = localStorage.getItem( 'cards-userId' ),
 		userIds = Object.keys( this.model.users ).filter( function ( userId ) {
@@ -148,7 +148,7 @@ Cards.ClientView.prototype.onUsers = function () {
 	} );
 };
 
-Cards.ClientView.prototype.onClearClick = function () {
+Cards.GameView.prototype.onClearClick = function () {
 	var view = this;
 	OO.ui.confirm( 'This cannot be undone.', {
 		title: 'Clear the whole game and start again?',
