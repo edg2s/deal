@@ -36,7 +36,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	playButton.on( 'click', this.onPlay.bind( this ) );
 	moneyButton.on( 'click', this.emit.bind( this, 'action', 'money', this.model.id ) );
 	rotateButton.on( 'click', this.emit.bind( this, 'action', 'rotate', this.model.id ) );
-	discardButton.on( 'click', this.emit.bind( this, 'action', 'discard', this.model.id ) );
+	discardButton.on( 'click', this.onDiscard.bind( this ) );
 	passButton.on( 'click', this.onPass.bind( this ) );
 	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, this.location ) );
 
@@ -183,6 +183,22 @@ Cards.CardView.prototype.onPlay = function () {
 			this.emit( 'action', 'action', this.model.id );
 			break;
 	}
+};
+
+Cards.CardView.prototype.onDiscard = function () {
+	var view = this;
+
+	OO.ui.confirm( 'This cannot be undone.', {
+		title: 'Discard this card to the bottom of the deck?',
+		actions: [
+			{ action: 'cancel', label: 'Cancel', flags: [ 'primary' ] },
+			{ action: 'accept', label: 'Discard', flags: [ 'destructive', 'primary' ] }
+		]
+	} ).then( function ( result ) {
+		if ( result ) {
+			view.emit( 'action', 'discard', view.model.id );
+		}
+	} );
 };
 
 Cards.CardView.prototype.onPass = function () {
