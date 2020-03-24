@@ -135,6 +135,11 @@ Cards.GameView.prototype.onUsers = function () {
 				draggable: isCurrentUser
 			} );
 
+		if ( !view.model.users[ userId ] ) {
+			// User not in game
+			return;
+		}
+
 		if ( isCurrentUser ) {
 			property.on( 'reorder', view.onReorder.bind( view, 'property' ) );
 			money.on( 'reorder', view.onReorder.bind( view, 'money' ) );

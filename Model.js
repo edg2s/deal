@@ -26,7 +26,7 @@ Model.prototype.clear = function () {
 };
 
 Model.prototype.addUser = function ( userId, userName ) {
-	if ( !( userId in this.users ) ) {
+	if ( !( userId in this.users ) && this.state === 'init' ) {
 		this.users[ userId ] = userName;
 		this.emit( 'users' );
 	}
