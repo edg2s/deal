@@ -69,8 +69,24 @@ Model.prototype.dealAll = function ( n ) {
 
 Model.prototype.deal = function ( userId, n, noEmit ) {
 	const hand = this.getHand( userId );
-	hand.hidden = hand.hidden.concat( this.cards.deck.splice( 0, n ) );
-	this.log( 'Dealt ' + n + ' cards to ' + this.users[ userId ] );
+	const dealt = this.cards.deck.splice( 0, n );
+	hand.hidden = hand.hidden.concat( dealt );
+	this.log( 'Dealt ' + dealt.length + ' cards to ' + this.users[ userId ] );
+
+	if ( !this.cards.deck.length ) {
+		this.log( 'Draw pile ran out' );
+		if ( this.cards.played.length ) {
+			this.cards.deck = shuffle( this.cards.played );
+			this.cards.played = [];
+			this.log( 'Shuffled the played cards' );
+
+			// Deal remaining cards
+			if ( dealt.length < n ) {
+				this.deal( userId, n - dealt.length, true );
+			}
+		}
+	}
+
 	if ( !noEmit ) {
 		this.emit( 'cards' );
 	}
