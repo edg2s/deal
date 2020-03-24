@@ -1,5 +1,6 @@
 Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	var buttons, items, location,
+		moveLeftButton, moveRightButton,
 		playButton, moneyButton, rotateButton, passButton, discardButton, undoButton;
 
 	Cards.PlayableCardView.super.call( this );
@@ -17,6 +18,8 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 		this.cardView.$element.addClass( 'card-rotated' );
 	}
 
+	moveLeftButton = new OO.ui.ButtonWidget( { icon: 'previous', title: 'Move left' } );
+	moveRightButton = new OO.ui.ButtonWidget( { icon: 'next', title: 'Move right' } );
 	playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
 	moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
 	rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
@@ -24,6 +27,8 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
 	undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
 
+	moveLeftButton.on( 'click', this.onMove.bind( this, -1 ) );
+	moveRightButton.on( 'click', this.onMove.bind( this, 1 ) );
 	playButton.on( 'click', this.onPlay.bind( this ) );
 	moneyButton.on( 'click', this.emit.bind( this, 'action', 'money', this.model.id ) );
 	rotateButton.on( 'click', this.onRotate.bind( this ) );
@@ -32,6 +37,9 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, location ) );
 
 	items = [];
+	if ( Cards.isMobile && ( location === 'hand' || isCurrentUser ) ) {
+		items.push( moveLeftButton );
+	}
 	if ( location !== 'played' ) {
 		if ( location === 'hand' ) {
 			items.push( playButton );
@@ -61,6 +69,9 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 		( isCurrentUser && ( location === 'property' || location === 'money' ) )
 	) {
 		items.push( undoButton );
+	}
+	if ( Cards.isMobile && ( location === 'hand' || isCurrentUser ) ) {
+		items.push( moveRightButton );
 	}
 
 	if ( items.length ) {
@@ -156,4 +167,15 @@ Cards.PlayableCardView.prototype.onPass = function () {
 			view.passTo( data.action );
 		}
 	} );
+};
+
+Cards.PlayableCardView.prototype.onMove = function ( dir ) {
+	var items = this.cardList.items,
+		index = items.indexOf( this ),
+		newIndex = index + dir;
+
+	if ( newIndex >= 0 && newIndex < items.length ) {
+		this.cardList.emit( 'reorder', this, index + dir );
+		this.cardList.addItems( [ this ], index + dir );
+	}
 };

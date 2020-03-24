@@ -3,6 +3,7 @@ window.Cards = {
 	currency: function ( value ) {
 		return Cards.data.currency[ Cards.locale ] + value + 'm';
 	},
+	isMobile: !!navigator.userAgent.match( /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i ),
 	audio: {
 		card: new Audio( '../audio/card.mp3' ),
 		shuffle: new Audio( '../audio/shuffle.mp3' )
@@ -23,4 +24,8 @@ window.Cards = {
 		sound.volume = 0.5;
 		sound.play();
 	}
+};
+
+OO.ui.isMobile = function () {
+	return Cards.isMobile;
 };
