@@ -2,6 +2,6 @@
 	"extends": [
 		"wikimedia",
 		"wikimedia/node",
-		"wikimedia/language/es2016"
+		"wikimedia/language/es2017"
 	]
 }

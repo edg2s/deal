@@ -66,6 +66,7 @@ Model.prototype.start = function () {
 		this.dealAll( 7 );
 		this.state = 'started';
 		this.emit( 'state' );
+		this.log( 'Random user order: ' + shuffle( Object.values( this.users ) ).join( ', ' ) );
 	}
 };
 
