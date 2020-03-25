@@ -1,3 +1,7 @@
+.oo-ui-icon-money {
+	background-image: url( money.svg );
+}
+
 .card-container {
 	position: relative;
 	display: inline-block;

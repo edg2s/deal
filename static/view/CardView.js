@@ -24,11 +24,11 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	}
 
 	playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
-	moneyButton = new OO.ui.ButtonWidget( { label: Cards.data.currency[ Cards.locale ], title: 'Play as money' } );
+	moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
 	rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
 	passButton = new OO.ui.ButtonWidget( { icon: 'userGroup', title: 'Pass to another player' } );
 	discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
-	undoButton = new OO.ui.ButtonWidget( { icon: 'undo', title: 'Return to my hand' } );
+	undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
 
 	playButton.on( 'click', this.onPlay.bind( this ) );
 	moneyButton.on( 'click', this.emit.bind( this, 'action', 'money', this.model.id ) );

@@ -4,6 +4,11 @@ body {
 	margin: 0;
 }
 
+.oo-ui-iconElement-icon {
+	min-width: auto;
+	min-height: auto;
+}
+
 .game-columns {
 	display: flex;
 }
