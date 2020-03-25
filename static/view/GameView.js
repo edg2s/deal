@@ -123,45 +123,10 @@ Cards.GameView.prototype.onUsers = function () {
 	this.$users.empty();
 
 	userIds.forEach( function ( userId ) {
-		var items,
-			$user = $( '<div>' ).addClass( 'game-user' ),
-			isCurrentUser = userId === localStorage.getItem( 'cards-userId' ),
-			property = new Cards.CardList( {
-				classes: [ 'game-property' ],
-				draggable: isCurrentUser
-			} ),
-			money = new Cards.CardList( {
-				classes: [ 'game-money' ],
-				draggable: isCurrentUser
-			} );
-
-		if ( !view.model.users[ userId ] ) {
-			// User not in game
-			return;
-		}
-
-		if ( isCurrentUser ) {
-			property.on( 'reorder', view.onReorder.bind( view, 'property' ) );
-			money.on( 'reorder', view.onReorder.bind( view, 'money' ) );
-		}
-
-		$user.append(
-			property.$element,
-			money.$element
-		).attr( 'data-user', view.model.users[ userId ] + ' (' + view.model.getHand( userId ).hidden + ' in hand)' );
-		items = view.model.getHand( userId ).property.map( function ( id ) {
-			var cardView = new Cards.CardView( view, id, 'property', isCurrentUser );
-			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
-			return cardView;
-		} );
-		property.addItems( items );
-		items = view.model.getHand( userId ).money.map( function ( id ) {
-			var cardView = new Cards.CardView( view, id, 'money', isCurrentUser );
-			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
-			return cardView;
-		} );
-		money.addItems( items );
-		view.$users.append( $user );
+		var userView = new Cards.UserView( userId, view );
+		// Pass through cardAction events
+		userView.on( 'cardAction', view.emit.bind( view, 'cardAction' ) );
+		view.$users.append( userView.$element );
 	} );
 };
 

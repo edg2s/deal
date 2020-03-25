@@ -1,0 +1,79 @@
+.game-user {
+	margin-bottom: 1em;
+	border: 1px solid #999;
+	background: #eef;
+	font-size: 0.7em;
+	width: 100%;
+}
+
+.game-user:before {
+	content: attr( data-user );
+}
+
+.game-money,
+.game-property {
+	display: inline-block;
+	margin: 0 1em 1em 0;
+	padding: 0.5em;
+	background: rgba( 255, 255, 255, 0.5 );
+	max-width: calc( 100% - 2em );
+	min-width: 20em;
+}
+
+.game-money:before,
+.game-property:before {
+	display: block;
+	font-size: 1.2em;
+}
+
+.game-money:before {
+	content: 'Money';
+}
+
+.game-property:before {
+	content: 'Property';
+}
+
+.game-property {
+	min-height: 27em;
+	vertical-align: top;
+}
+
+.game-money {
+	height: 20em;
+	overflow-y: hidden;
+	padding-right: 8em;
+}
+
+.game-money .card-container + .card-container {
+	margin-left: -6em;
+}
+
+.game-money .card {
+	transform: rotate( -90deg );
+	transform-origin: 8em 8em;
+}
+
+.game-hand,
+.game-money,
+.game-property {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.game-hand {
+	border-top: 1px solid #999;
+	box-shadow: 0 0 5px rgba( 0, 0, 0, 0.25 );
+	padding: 1em;
+	background: #eee;
+	position: sticky;
+	bottom: -20em;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 0.85em;
+}
+
+.game-hand:before {
+	content: attr( data-hand );
+	display: block;
+}
