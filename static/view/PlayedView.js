@@ -27,12 +27,7 @@ Cards.PlayedView.prototype.isDroppable = function () {
 		cardView = gameView.hand.dragItem;
 
 	// Hand -> Played
-	return cardView && (
-		cardView.model.type === 'rent' ||
-		( cardView.model.type === 'action' &&
-			!( cardView.model.name === 'house' || cardView.model.name === 'hotel' )
-		)
-	);
+	return cardView && ( cardView.model.type === 'rent' || cardView.model.type === 'action' );
 };
 
 Cards.PlayedView.prototype.drop = function () {

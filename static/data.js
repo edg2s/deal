@@ -26,13 +26,17 @@ Cards.data.cardTypes = [
 		count: 3
 	},
 	{
-		type: 'action',
+		// Looks like an action, behaves like a property
+		type: 'property',
+		viewType: 'action',
 		name: 'hotel',
 		value: 4,
 		count: 2
 	},
 	{
-		type: 'action',
+		// Looks like an action, behaves like a property
+		type: 'property',
+		viewType: 'action',
 		name: 'house',
 		value: 3,
 		count: 3
@@ -358,6 +362,7 @@ Cards.data.cardTypes.forEach( function ( card ) {
 	for ( i = 0; i < card.count; i++ ) {
 		Cards.data.cards.push( {
 			type: card.type,
+			viewType: card.viewType || card.type,
 			name: card.name,
 			value: card.value
 		} );

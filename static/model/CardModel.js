@@ -3,9 +3,10 @@ Cards.CardModel = function ( id ) {
 	this.id = id;
 	this.value = data.value;
 	this.type = data.type;
+	this.viewType = data.viewType;
 	this.name = data.name;
 
-	switch ( data.type ) {
+	switch ( data.viewType ) {
 		case 'money':
 			this.title = Cards.currency( data.value );
 			break;

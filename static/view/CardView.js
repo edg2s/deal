@@ -14,7 +14,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	this.$inner = $( '<div>' ).addClass( 'card-inner' );
 
 	this.$card = $( '<div>' )
-		.addClass( 'card card-' + this.model.type )
+		.addClass( 'card card-' + this.model.viewType )
 		.append( this.$inner );
 
 	this.$element.addClass( 'card-container' ).append( this.$card );
@@ -77,7 +77,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 		);
 	}
 
-	switch ( this.model.type ) {
+	switch ( this.model.viewType ) {
 		case 'money':
 			this.$card.addClass( 'card-money-' + this.model.value );
 			this.$inner.append(
@@ -177,12 +177,6 @@ Cards.CardView.prototype.onPlay = function () {
 			this.emit( 'action', 'money', this.model.id );
 			break;
 		case 'action':
-			if ( this.model.name === 'house' || this.model.name === 'hotel' ) {
-				this.emit( 'action', 'property', this.model.id );
-			} else {
-				this.emit( 'action', 'action', this.model.id );
-			}
-			break;
 		case 'rent':
 			this.emit( 'action', 'action', this.model.id );
 			break;
@@ -197,14 +191,8 @@ Cards.CardView.prototype.playAsPropertyOrMoney = function () {
 			break;
 		case 'rent':
 		case 'money':
-			this.emit( 'action', 'money', this.model.id );
-			break;
 		case 'action':
-			if ( this.model.name === 'house' || this.model.name === 'hotel' ) {
-				this.emit( 'action', 'property', this.model.id );
-			} else {
-				this.emit( 'action', 'money', this.model.id );
-			}
+			this.emit( 'action', 'money', this.model.id );
 			break;
 	}
 };
