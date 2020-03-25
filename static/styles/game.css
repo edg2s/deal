@@ -16,6 +16,7 @@ body {
 .game-left {
 	flex-grow: 1;
 	padding-right: 0;
+	min-width: 0;
 }
 
 .game-right-inner {
