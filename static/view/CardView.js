@@ -41,7 +41,11 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 	if ( location !== 'played' ) {
 		if ( location === 'hand' ) {
 			items.push( playButton );
-			if ( this.model.type !== 'money' && this.model.value ) {
+			if (
+				// Allow viewType=action too so houses/hotels can be played as money
+				( this.model.type === 'action' || this.model.viewType === 'action' ) &&
+				this.model.value
+			) {
 				items.push( moneyButton );
 			}
 		}
