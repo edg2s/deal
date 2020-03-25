@@ -26,10 +26,20 @@ Model.prototype.clear = function () {
 	this.emit( 'state' );
 };
 
-Model.prototype.addUser = function ( userId, userName ) {
+Model.prototype.addUser = function ( userId ) {
 	if ( !( userId in this.users ) && this.state === 'init' ) {
+		this.users[ userId ] = '';
+		this.emit( 'users' );
+	}
+};
+
+Model.prototype.setUserName = function ( userId, userName ) {
+	if ( userId in this.users ) {
 		this.users[ userId ] = userName;
 		this.emit( 'users' );
+		if ( userName ) {
+			console.log( 'User ' + userId + ' set name to ' + userName );
+		}
 	}
 };
 

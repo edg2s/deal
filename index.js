@@ -48,7 +48,6 @@ function createServer( app ) {
 		const
 			context = {},
 			room = socket.handshake.query.room,
-			userName = socket.handshake.query.userName,
 			// token = socket.handshake.query.token,
 			userId = socket.handshake.query.userId;
 
@@ -56,7 +55,7 @@ function createServer( app ) {
 		context.broadcoast = io.emit.bind( io );
 
 		// Store username
-		console.log( 'User ' + userName + ' connected' );
+		console.log( 'User ' + userId + ' connected' );
 		context.emit( 'init', userId );
 
 		socket.join( room );
@@ -74,10 +73,10 @@ function createServer( app ) {
 		model.emit( 'users' );
 		model.emit( 'state' );
 
-		socket.on( 'command', ( command ) => {
+		socket.on( 'command', ( command, ...args ) => {
 			switch ( command ) {
 				case 'join':
-					model.addUser( userId, userName );
+					model.addUser( userId );
 					break;
 				case 'clear':
 					model.clear();
@@ -88,6 +87,9 @@ function createServer( app ) {
 					break;
 				case 'draw':
 					model.deal( userId, 2 );
+					break;
+				case 'userName':
+					model.setUserName( userId, args[ 0 ] );
 					break;
 			}
 		} );
@@ -109,7 +111,7 @@ function createServer( app ) {
 		} );
 
 		socket.on( 'disconnect', function () {
-			console.log( 'User ' + userName + ' disconnected' );
+			console.log( 'User ' + userId + ' disconnected' );
 		} );
 	} );
 }

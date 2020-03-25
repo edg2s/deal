@@ -7,10 +7,10 @@ Cards.GameView = function ( model ) {
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
 	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
 
-	this.userName = new OO.ui.TextInputWidget( {
-		value: localStorage.getItem( 'cards-userName' ),
-		readOnly: true
-	} );
+	this.userNameInput = new OO.ui.TextInputWidget()
+		.on( 'change', function () {
+			view.emit( 'userName' );
+		} );
 
 	this.startButton.on( 'click', view.emit.bind( view, 'command', 'start' ) );
 	this.clearButton.on( 'click', this.onClearClick.bind( this ) );
@@ -45,7 +45,7 @@ Cards.GameView = function ( model ) {
 			$( '<div>' ).addClass( 'game-right' ).append(
 				$( '<div>' ).addClass( 'game-right-inner' ).append(
 					$( '<div>' ).addClass( 'game-username' ).append(
-						this.userName.$element
+						this.userNameInput.$element
 					),
 					this.played.$element,
 					this.$log
@@ -59,6 +59,10 @@ Cards.GameView = function ( model ) {
 };
 
 OO.inheritClass( Cards.GameView, OO.ui.Widget );
+
+Cards.GameView.prototype.getUserName = function () {
+	return this.userNameInput.getValue();
+};
 
 Cards.GameView.prototype.updateButtons = function () {
 	this.startButton.setDisabled(

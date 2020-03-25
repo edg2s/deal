@@ -9,7 +9,6 @@
 	if ( !userName ) {
 		promise = OO.ui.prompt( 'Enter your name' ).done( function ( result ) {
 			userName = result || 'Anon ' + Math.floor( Math.random() * 1000 );
-			localStorage.setItem( 'cards-userName', userName );
 		} );
 	}
 
@@ -17,21 +16,22 @@
 		var socket = io( '', {
 			query: {
 				userId: localStorage.getItem( 'cards-userId' ) || Math.random(),
-				userName: userName,
 				room: 'room1'
 			},
 			transports: [ 'websocket' ]
 		} );
 
-		$game.append(
-			view.$element
-		);
+		$game.append( view.$element );
 
 		view.on( 'command', function ( arg ) {
 			socket.emit( 'command', arg );
 		} );
 
-		socket.emit( 'command', 'join' );
+		view.on( 'userName', function () {
+			var userName = view.getUserName();
+			socket.emit( 'command', 'userName', userName );
+			localStorage.setItem( 'cards-userName', userName );
+		} );
 
 		view.on( 'cardAction', function () {
 			var args = Array.prototype.slice.call( arguments );
@@ -47,6 +47,7 @@
 
 		socket.on( 'clear', function () {
 			socket.emit( 'command', 'join' );
+			socket.emit( 'command', 'userName', view.getUserName() );
 		} );
 
 		socket.on( 'state', function ( state ) {
@@ -69,5 +70,7 @@
 			view.log( message );
 		} );
 
+		socket.emit( 'command', 'join' );
+		view.userNameInput.setValue( userName );
 	} );
 }() );
