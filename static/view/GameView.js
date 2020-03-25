@@ -26,8 +26,9 @@ Cards.GameView = function ( model ) {
 	} );
 
 	this.$log = $( '<div>' ).addClass( 'game-log' );
-	this.$played = $( '<div>' ).addClass( 'game-played' );
 	this.$users = $( '<div>' ).addClass( 'game-users' );
+	this.played = new Cards.PlayedView( this );
+	this.played.on( 'cardAction', this.emit.bind( this, 'cardAction' ) );
 	this.hand = new Cards.CardList( { classes: [ 'game-hand' ] } );
 	this.hand.on( 'reorder', this.onReorder.bind( this, 'hidden' ) );
 
@@ -44,7 +45,7 @@ Cards.GameView = function ( model ) {
 					$( '<div>' ).addClass( 'game-username' ).append(
 						this.userName.$element
 					),
-					this.$played,
+					this.played.$element,
 					this.$log
 				)
 			)
@@ -80,16 +81,7 @@ Cards.GameView.prototype.log = function ( message ) {
 };
 
 Cards.GameView.prototype.onCards = function () {
-	var view = this;
-
-	this.$played.empty();
-
-	this.model.cards.played.slice( -3 ).forEach( function ( id ) {
-		var cardView = new Cards.CardView( view, id, 'played' );
-		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
-		view.$played.append( cardView.$element );
-	} );
-
+	this.played.update();
 	this.onUsers();
 };
 
