@@ -3,6 +3,7 @@ Cards.UserView = function ( userId, gameView ) {
 		view = this;
 
 	Cards.UserView.super.call( this );
+	Cards.DroppableView.call( this );
 
 	this.userId = userId;
 	this.gameView = gameView;
@@ -52,7 +53,34 @@ Cards.UserView = function ( userId, gameView ) {
 };
 
 OO.inheritClass( Cards.UserView, OO.ui.Widget );
+OO.mixinClass( Cards.UserView, Cards.DroppableView );
 
 Cards.UserView.prototype.onReorder = function ( location, card, index ) {
 	this.emit( 'cardAction', 'reorder', location, card.model.id, index );
+};
+
+Cards.UserView.prototype.isDroppable = function () {
+	var gameView = this.gameView,
+		currentUserView = gameView.currentUserView;
+
+	// Hand -> Current user
+	return ( gameView.hand.dragItem && this.isCurrentUser ) ||
+		// Current user -> other user
+		(
+			( currentUserView.property.dragItem || currentUserView.money.dragItem ) &&
+			!this.isCurrentUser
+		);
+};
+
+Cards.UserView.prototype.drop = function () {
+	var gameView = this.gameView,
+		currentUserView = gameView.currentUserView;
+
+	if ( currentUserView.property.dragItem && !this.isCurrentUser ) {
+		currentUserView.property.dragItem.passTo( this.userId );
+	} else if ( currentUserView.money.dragItem && !this.isCurrentUser ) {
+		currentUserView.money.dragItem.passTo( this.userId );
+	} else if ( gameView.hand.dragItem && this.isCurrentUser ) {
+		gameView.hand.dragItem.playAsPropertyOrMoney();
+	}
 };

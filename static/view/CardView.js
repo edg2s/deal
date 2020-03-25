@@ -189,6 +189,35 @@ Cards.CardView.prototype.onPlay = function () {
 	}
 };
 
+Cards.CardView.prototype.playAsPropertyOrMoney = function () {
+	switch ( this.model.type ) {
+		case 'property':
+		case 'wildcard':
+			this.emit( 'action', 'property', this.model.id );
+			break;
+		case 'rent':
+		case 'money':
+			this.emit( 'action', 'money', this.model.id );
+			break;
+		case 'action':
+			if ( this.model.name === 'house' || this.model.name === 'hotel' ) {
+				this.emit( 'action', 'property', this.model.id );
+			} else {
+				this.emit( 'action', 'money', this.model.id );
+			}
+			break;
+	}
+};
+
+Cards.CardView.prototype.passTo = function ( userId ) {
+	this.emit(
+		'action',
+		this.location === 'money' ? 'passMoney' : 'passProperty',
+		this.model.id,
+		userId
+	);
+};
+
 Cards.CardView.prototype.onDiscard = function () {
 	var view = this;
 
@@ -238,12 +267,7 @@ Cards.CardView.prototype.onPass = function () {
 		}
 	).closing.then( function ( data ) {
 		if ( data && data.action !== 'cancel' ) {
-			view.emit(
-				'action',
-				view.location === 'money' ? 'passMoney' : 'passProperty',
-				view.model.id,
-				data.action
-			);
+			view.passTo( data.action );
 		}
 	} );
 };

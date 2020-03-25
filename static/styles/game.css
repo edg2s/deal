@@ -80,6 +80,12 @@ body {
 	min-height: 30em;
 }
 
+.game-played.droppable {
+	background-color: #dfd;
+	border-color: #000;
+	box-shadow: inset 0 0 0 1px #000;
+}
+
 .game-played:before {
 	content: 'Recently played actions';
 }

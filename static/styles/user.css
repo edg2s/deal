@@ -10,6 +10,12 @@
 	content: attr( data-user );
 }
 
+.game-user.droppable {
+	background-color: #ddf;
+	border-color: #000;
+	box-shadow: inset 0 0 0 1px #000;
+}
+
 .game-money,
 .game-property {
 	display: inline-block;

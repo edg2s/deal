@@ -31,6 +31,8 @@ Cards.GameView = function ( model ) {
 	this.played.on( 'cardAction', this.emit.bind( this, 'cardAction' ) );
 	this.hand = new Cards.CardList( { classes: [ 'game-hand' ] } );
 	this.hand.on( 'reorder', this.onReorder.bind( this, 'hidden' ) );
+	// Current user's view
+	this.currentUserView = null;
 
 	this.$element.addClass( 'game' ).append(
 		$( '<div>' ).addClass( 'game-columns' ).append(
@@ -105,10 +107,7 @@ Cards.GameView.prototype.onHand = function () {
 
 Cards.GameView.prototype.onUsers = function () {
 	var view = this,
-		currentUserId = localStorage.getItem( 'cards-userId' ),
-		userIds = Object.keys( this.model.users ).filter( function ( userId ) {
-			return userId !== currentUserId;
-		} ).concat( [ currentUserId ] );
+		userIds = Object.keys( this.model.users );
 
 	this.updateButtons();
 
@@ -118,8 +117,15 @@ Cards.GameView.prototype.onUsers = function () {
 		var userView = new Cards.UserView( userId, view );
 		// Pass through cardAction events
 		userView.on( 'cardAction', view.emit.bind( view, 'cardAction' ) );
+		if ( userView.isCurrentUser ) {
+			view.currentUserView = userView;
+		}
 		view.$users.append( userView.$element );
 	} );
+	if ( this.currentUserView ) {
+		// Put current user at the end
+		this.$users.append( this.currentUserView.$element );
+	}
 };
 
 Cards.GameView.prototype.onReorder = function ( location, card, index ) {
