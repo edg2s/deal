@@ -12,12 +12,10 @@ Cards.UserView = function ( userId, gameView ) {
 	gameModel = this.gameView.model;
 
 	this.property = new Cards.CardList( {
-		classes: [ 'game-property' ],
-		draggable: this.isCurrentUser
+		classes: [ 'game-property' ]
 	} );
 	this.money = new Cards.CardList( {
-		classes: [ 'game-money' ],
-		draggable: this.isCurrentUser
+		classes: [ 'game-money' ]
 	} );
 
 	if ( !gameModel.users[ userId ] ) {
@@ -48,6 +46,8 @@ Cards.UserView = function ( userId, gameView ) {
 			return cardView;
 		} )
 	);
+	this.property.toggleDraggable( this.isCurrentUser );
+	this.money.toggleDraggable( this.isCurrentUser );
 
 	this.$element.addClass( 'game-user' );
 };

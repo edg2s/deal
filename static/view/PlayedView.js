@@ -4,7 +4,9 @@ Cards.PlayedView = function ( gameView ) {
 
 	this.gameView = gameView;
 
-	this.$element.addClass( 'game-played' );
+	this.cardList = new Cards.CardList();
+
+	this.$element.addClass( 'game-played' ).append( this.cardList.$element );
 };
 
 OO.inheritClass( Cards.PlayedView, OO.ui.Widget );
@@ -13,13 +15,15 @@ OO.mixinClass( Cards.PlayedView, Cards.DroppableView );
 Cards.PlayedView.prototype.update = function () {
 	var view = this;
 
-	this.$element.empty();
+	this.cardList.clearItems().addItems(
+		view.gameView.model.cards.played.slice( -3 ).map( function ( id ) {
+			var cardView = new Cards.CardView( view.gameView, id, 'played' );
+			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
+			return cardView;
+		} )
+	);
 
-	this.gameView.model.cards.played.slice( -3 ).forEach( function ( id ) {
-		var cardView = new Cards.CardView( view.gameView, id, 'played' );
-		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
-		view.$element.append( cardView.$element );
-	} );
+	this.cardList.toggleDraggable( false );
 };
 
 Cards.PlayedView.prototype.isDroppable = function () {
