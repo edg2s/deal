@@ -46,7 +46,7 @@ Cards.CardView = function ( gameView, id, location, isCurrentUser ) {
 			}
 		}
 		if (
-			this.model.type === 'wildcard' && this.model.name !== 'all' &&
+			this.model.viewType === 'wildcard' && this.model.name !== 'all' &&
 			( isCurrentUser || location === 'hand' )
 		) {
 			items.push( rotateButton );
@@ -168,28 +168,14 @@ OO.inheritClass( Cards.CardView, OO.ui.Widget );
 OO.mixinClass( Cards.CardView, OO.ui.mixin.DraggableElement );
 
 Cards.CardView.prototype.onPlay = function () {
-	switch ( this.model.type ) {
-		case 'property':
-		case 'wildcard':
-			this.emit( 'action', 'property', this.model.id );
-			break;
-		case 'money':
-			this.emit( 'action', 'money', this.model.id );
-			break;
-		case 'action':
-		case 'rent':
-			this.emit( 'action', 'action', this.model.id );
-			break;
-	}
+	this.emit( 'action', this.model.type, this.model.id );
 };
 
 Cards.CardView.prototype.playAsPropertyOrMoney = function () {
 	switch ( this.model.type ) {
 		case 'property':
-		case 'wildcard':
 			this.emit( 'action', 'property', this.model.id );
 			break;
-		case 'rent':
 		case 'money':
 		case 'action':
 			this.emit( 'action', 'money', this.model.id );

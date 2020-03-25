@@ -270,85 +270,99 @@ Cards.data.cardTypes = [
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'dblue-green',
 		value: 4,
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'lblue-brown',
 		value: 1,
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'orange-pink',
 		value: 2,
 		count: 2
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'lblue-station',
 		value: 4,
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'utility-station',
 		value: 2,
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'yellow-red',
 		value: 3,
 		count: 2
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'green-station',
 		value: 4,
 		count: 1
 	},
 	{
-		type: 'wildcard',
+		type: 'property',
+		viewType: 'wildcard',
 		name: 'all',
 		value: 0,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'dblue-green',
 		value: 1,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'lblue-brown',
 		value: 1,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'orange-pink',
 		value: 1,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'utility-station',
 		value: 1,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'yellow-red',
 		value: 1,
 		count: 2
 	},
 	{
-		type: 'rent',
+		type: 'action',
+		viewType: 'rent',
 		name: 'all',
 		value: 3,
 		count: 3
