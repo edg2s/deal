@@ -1,0 +1,11 @@
+body {
+	font-family: sans-serif;
+	font-size: 14px;
+	margin: 0;
+}
+
+.oo-ui-actionFieldLayout.oo-ui-fieldLayout-align-top {
+	width: 80%;
+	max-width: 30em;
+	margin: 5em auto 0 auto;
+}

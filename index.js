@@ -14,11 +14,21 @@ function initApp() {
 		res.render( 'index' );
 	} );
 
+	app.get( new RegExp( '/game/(.*)' ), ( req, res ) => {
+		var roomName = req.params[ 0 ];
+
+		if ( roomName !== roomName.toLowerCase() ) {
+			res.redirect( '/game/' + roomName.toLowerCase() );
+			return;
+		}
+		res.render( 'game', { roomName: roomName } );
+	} );
+
 	return app;
 }
 
-function createModel( context ) {
-	const model = new Model();
+function createModel( context, roomName ) {
+	const model = new Model( roomName );
 
 	model.on( 'users', () => {
 		context.broadcoast( 'users', model.users );
@@ -46,22 +56,27 @@ function createServer( app ) {
 	const io = socketIO( server );
 	io.on( 'connection', ( socket ) => {
 		const
-			context = {},
-			room = socket.handshake.query.room,
+			roomName = socket.handshake.query.room,
 			// token = socket.handshake.query.token,
 			userId = socket.handshake.query.userId;
 
-		context.emit = socket.emit.bind( socket );
-		context.broadcoast = io.emit.bind( io );
+		socket.join( roomName );
+
+		const context = {
+			emit: socket.emit.bind( socket ),
+			broadcoast: function () {
+				const room = io.sockets.in( roomName );
+				room.emit.apply( room, arguments );
+			}
+		};
 
 		// Store username
-		console.log( 'User ' + userId + ' connected' );
+		console.log( roomName + ': User ' + userId + ' connected' );
 		context.emit( 'init', userId );
 
-		socket.join( room );
-		models[ room ] = models[ room ] || createModel( context );
+		models[ roomName ] = models[ roomName ] || createModel( context, roomName );
 
-		const model = models[ room ];
+		const model = models[ roomName ];
 
 		// Only send hidden cards to the user
 		model.on( 'cards', () => {
@@ -111,7 +126,7 @@ function createServer( app ) {
 		} );
 
 		socket.on( 'disconnect', function () {
-			console.log( 'User ' + userId + ' disconnected' );
+			console.log( roomName + ': User ' + userId + ' disconnected' );
 		} );
 	} );
 }

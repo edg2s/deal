@@ -1,76 +1,43 @@
 ( function () {
-	var promise = $.Deferred().resolve().promise(),
-		model = new Cards.GameModel(),
-		view = new Cards.GameView( model ),
-		userName = localStorage.getItem( 'cards-userName' ),
-		// eslint-disable-next-line no-jquery/no-global-selector
-		$game = $( '#game' );
-
-	if ( !userName ) {
-		promise = OO.ui.prompt( 'Enter your name' ).done( function ( result ) {
-			userName = result || 'Anon ' + Math.floor( Math.random() * 1000 );
+	var pieces = [
+			'boot',
+			'thimble',
+			'iron',
+			'car',
+			'hat',
+			'dog'
+		],
+		roomNameInput = new OO.ui.TextInputWidget( {
+			placeholder: 'Room name (optional)'
+		} ),
+		submitButton = new OO.ui.ButtonWidget( {
+			label: 'Join / Start',
+			flags: [ 'primary', 'progressive' ]
+		} ),
+		roomNameField = new OO.ui.ActionFieldLayout( roomNameInput, submitButton, {
+			align: 'top'
 		} );
+
+	function random( n ) {
+		return Math.floor( Math.random() * n );
 	}
 
-	promise.then( function () {
-		var socket = io( '', {
-			query: {
-				userId: localStorage.getItem( 'cards-userId' ) || Math.random(),
-				room: 'room1'
-			},
-			transports: [ 'websocket' ]
-		} );
+	function onSubmit() {
+		var docName = roomNameInput.getValue().trim() ||
+			( pieces[ random( pieces.length ) ] + ( random( 9000 ) + 1000 ) );
 
-		$game.append( view.$element );
+		if ( docName ) {
+			window.location.href = '/game/' + encodeURIComponent( docName );
+		} else {
+			roomNameInput.focus();
+		}
+	}
 
-		view.on( 'command', function ( arg ) {
-			socket.emit( 'command', arg );
-		} );
+	submitButton.on( 'click', onSubmit );
+	roomNameInput.on( 'enter', onSubmit );
 
-		view.on( 'userName', function () {
-			var userName = view.getUserName();
-			socket.emit( 'command', 'userName', userName );
-			localStorage.setItem( 'cards-userName', userName );
-		} );
+	$( document.body ).append( roomNameField.$element );
 
-		view.on( 'cardAction', function () {
-			var args = Array.prototype.slice.call( arguments );
-			socket.emit.apply(
-				socket,
-				[ 'cardAction' ].concat( args )
-			);
-		} );
+	roomNameInput.focus();
 
-		socket.on( 'init', function ( userId ) {
-			localStorage.setItem( 'cards-userId', userId );
-		} );
-
-		socket.on( 'clear', function () {
-			socket.emit( 'command', 'join' );
-			socket.emit( 'command', 'userName', view.getUserName() );
-		} );
-
-		socket.on( 'state', function ( state ) {
-			model.setState( state );
-		} );
-
-		socket.on( 'users', function ( users ) {
-			model.setUsers( users );
-		} );
-
-		socket.on( 'cards', function ( cards ) {
-			model.setCards( cards );
-		} );
-
-		socket.on( 'hand', function ( hand ) {
-			model.setHand( hand );
-		} );
-
-		socket.on( 'log', function ( message ) {
-			view.log( message );
-		} );
-
-		socket.emit( 'command', 'join' );
-		view.userNameInput.setValue( userName );
-	} );
 }() );

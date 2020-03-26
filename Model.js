@@ -2,9 +2,11 @@ const
 	shuffle = require( 'shuffle-array' ),
 	OO = require( 'oojs' );
 
-function Model() {
+function Model( roomName ) {
 	// Mixin
 	OO.EventEmitter.call( this );
+
+	this.roomName = roomName;
 
 	this.clear();
 }
@@ -38,7 +40,7 @@ Model.prototype.setUserName = function ( userId, userName ) {
 		this.users[ userId ] = userName;
 		this.emit( 'users' );
 		if ( userName ) {
-			console.log( 'User ' + userId + ' set name to ' + userName );
+			console.log( this.roomName + ': User ' + userId + ' set name to ' + userName );
 		}
 	}
 };
@@ -110,7 +112,7 @@ Model.prototype.log = function ( message ) {
 
 Model.prototype.reorder = function ( userId, location, cardId, index ) {
 	if ( ![ 'hidden', 'property', 'money' ].includes( location ) ) {
-		console.log( 'reorder: location ' + location + ' not found' );
+		console.log( this.roomName + ': reorder: location ' + location + ' not found' );
 		return;
 	}
 
@@ -127,7 +129,7 @@ Model.prototype.reorder = function ( userId, location, cardId, index ) {
 			this.emit( 'cards' );
 		}
 	} else {
-		console.log( 'reorder: card not found in hand' );
+		console.log( this.roomName + ': reorder: card not found in hand' );
 	}
 };
 

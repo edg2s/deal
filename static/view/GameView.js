@@ -39,7 +39,8 @@ Cards.GameView = function ( model ) {
 		$( '<div>' ).addClass( 'game-columns' ).append(
 			$( '<div>' ).addClass( 'game-left' ).append(
 				$( '<div>' ).addClass( 'game-controls' ).append(
-					this.startButton.$element, this.clearButton.$element, this.drawButton.$element
+					this.startButton.$element, this.clearButton.$element, this.drawButton.$element,
+					$( '<span>' ).text( 'Room: ' + Cards.roomName )
 				),
 				this.$users
 			),
