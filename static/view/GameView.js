@@ -14,7 +14,8 @@ Cards.GameView = function ( model ) {
 
 	this.startButton.on( 'click', view.emit.bind( view, 'command', 'start' ) );
 	this.clearButton.on( 'click', this.onClearClick.bind( this ) );
-	this.drawButton.on( 'click', view.emit.bind( view, 'command', 'draw' ) );
+	// Debounce 1000ms to avoid accidental double deal
+	this.drawButton.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw' ), 1000, true ) );
 
 	this.model = model;
 
