@@ -1,11 +1,14 @@
 Cards.GameView = function ( model ) {
-	var view = this;
+	var audioToggleField,
+		view = this;
 
 	Cards.GameView.super.call( this );
 
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
 	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
+	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
+	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, { align: 'inline', label: 'Sounds' } );
 
 	this.userNameInput = new OO.ui.TextInputWidget()
 		.on( 'change', function () {
@@ -40,6 +43,7 @@ Cards.GameView = function ( model ) {
 			$( '<div>' ).addClass( 'game-left' ).append(
 				$( '<div>' ).addClass( 'game-controls' ).append(
 					this.startButton.$element, this.clearButton.$element, this.drawButton.$element,
+					audioToggleField.$element,
 					$( '<span>' ).text( 'Room: ' + Cards.roomName )
 				),
 				this.$users

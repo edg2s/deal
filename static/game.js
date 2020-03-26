@@ -70,6 +70,12 @@
 			view.log( message );
 		} );
 
+		socket.on( 'sound', function ( sounds, spacing ) {
+			if ( view.audioToggle.isSelected() ) {
+				Cards.playSequence( sounds, spacing );
+			}
+		} );
+
 		socket.emit( 'command', 'join' );
 		view.userNameInput.setValue( userName );
 	} );

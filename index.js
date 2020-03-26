@@ -96,12 +96,15 @@ function createServer( app ) {
 				case 'clear':
 					model.clear();
 					context.broadcoast( 'clear' );
+					context.broadcoast( 'sound', [ 'shuffle' ] );
 					break;
 				case 'start':
 					model.start();
+					context.broadcoast( 'sound', [ 'card', 'card', 'card', 'card' ], 150 );
 					break;
 				case 'draw':
 					model.deal( userId, 2 );
+					context.broadcoast( 'sound', [ 'card', 'card' ], 300 );
 					break;
 				case 'userName':
 					model.setUserName( userId, args[ 0 ] );
@@ -121,6 +124,17 @@ function createServer( app ) {
 				case 'discard':
 				case 'reorder':
 					model[ command ].apply( model, [ userId ].concat( args ) );
+					break;
+			}
+			switch ( command ) {
+				case 'property':
+				case 'money':
+				case 'action':
+				case 'passProperty':
+				case 'passMoney':
+				case 'undo':
+				case 'discard':
+					context.broadcoast( 'sound', [ 'card' ] );
 					break;
 			}
 		} );
