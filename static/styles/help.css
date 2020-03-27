@@ -1,0 +1,33 @@
+.help-dialog .card {
+	font-size: 0.5em;
+	transition: transform 250ms;
+	margin: 1px;
+}
+
+.help-dialog .card:hover {
+	transform: scale( 1.5 );
+	z-index: 1;
+}
+
+.card-count {
+	font-size: 1.5em;
+	position: absolute;
+	bottom: 0.2em;
+	left: 0.2em;
+	width: 2em;
+	height: 2em;
+	line-height: 2em;
+	text-align: center;
+	border: 1px solid #000;
+	background: #eef;
+	border-radius: 50%;
+}
+
+.help-dialog .card-group {
+	display: flex;
+	flex-flow: wrap;
+}
+
+.help-dialog > h3 {
+	text-transform: capitalize;
+}

@@ -7,6 +7,7 @@ Cards.GameView = function ( model ) {
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
 	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
+	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help' } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
 	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
 		classes: [ 'game-audiotoggle' ],
@@ -23,6 +24,9 @@ Cards.GameView = function ( model ) {
 	this.clearButton.on( 'click', this.onClearClick.bind( this ) );
 	// Debounce 1000ms to avoid accidental double deal
 	this.drawButton.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw' ), 1000, true ) );
+	this.helpButton.on( 'click', function () {
+		OO.ui.getWindowManager().openWindow( 'help' );
+	} );
 
 	this.model = model;
 
@@ -48,7 +52,8 @@ Cards.GameView = function ( model ) {
 				$( '<div>' ).addClass( 'game-controls' ).append(
 					this.startButton.$element, this.clearButton.$element, this.drawButton.$element,
 					audioToggleField.$element,
-					$( '<span>' ).text( 'Room: ' + Cards.roomName )
+					new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName } ).$element,
+					this.helpButton.$element
 				),
 				this.$users
 			),
