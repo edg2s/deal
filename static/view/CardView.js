@@ -1,5 +1,5 @@
 Cards.CardView = function ( id ) {
-	var color, $rent, actionData,
+	var color, $rent, actionData, description,
 		cardView = this;
 
 	Cards.CardView.super.call( this );
@@ -40,6 +40,9 @@ Cards.CardView = function ( id ) {
 			break;
 		case 'action':
 			actionData = Cards.data.actions[ this.model.name ];
+			description = typeof actionData.description === 'object' ?
+				actionData.description[ Cards.locale ] :
+				actionData.description;
 
 			this.$element.addClass( 'card-action-' + this.model.name );
 			this.$inner.append(
@@ -47,7 +50,7 @@ Cards.CardView = function ( id ) {
 					$( '<div>' ).addClass( 'card-icon' ).text( actionData.icon ),
 					$( '<div>' ).addClass( 'card-text' ).text( this.model.title )
 				),
-				$( '<div>' ).addClass( 'card-description' ).text( actionData.description )
+				$( '<div>' ).addClass( 'card-description' ).text( description )
 			);
 			break;
 		case 'wildcard':
@@ -79,15 +82,16 @@ Cards.CardView = function ( id ) {
 			}
 			break;
 		case 'rent':
+			actionData = Cards.data.actions[ this.model.name === 'all' ? 'rentAll' : 'rent' ];
+			description = typeof actionData.description === 'object' ?
+				actionData.description[ Cards.locale ] :
+				actionData.description;
+
 			this.$inner.append(
 				$( '<div>' ).addClass( 'card-title card-rent-' + this.model.name ).append(
 					$( '<div>' ).addClass( 'card-text' ).text( this.model.title )
 				),
-				$( '<div>' ).addClass( 'card-description' ).text(
-					this.model.name === 'all' ?
-						'Force one player to pay you rent for properties you own in one of these colors.' :
-						'All players pay you rent for properties you own in one of these colors.'
-				)
+				$( '<div>' ).addClass( 'card-description' ).text( description )
 			);
 			break;
 	}

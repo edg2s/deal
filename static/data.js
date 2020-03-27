@@ -412,7 +412,8 @@ Cards.data.properties = {
 		station3: 'B. & O. Railroad',
 		station4: 'Short Line',
 		utility1: 'Electric Company',
-		utility2: 'Water Works'
+		utility2: 'Water Works',
+		wild: 'Property wild card'
 	},
 	gb: {
 		brown1: 'Old Kent Road',
@@ -442,7 +443,8 @@ Cards.data.properties = {
 		station3: 'Fenchurch Street Station',
 		station4: 'Liverpool Street Station',
 		utility1: 'Electric Company',
-		utility2: 'Water Works'
+		utility2: 'Water Works',
+		wild: 'Property wild card'
 	}
 };
 
@@ -487,12 +489,18 @@ Cards.data.actions = {
 	},
 	hotel: {
 		title: 'Hotel',
-		description: 'Add onto any full set you own to add ' + Cards.currency( 4 ) + ' to the rent value. (Except railroads and utilities.)',
+		description: {
+			gb: 'Add onto any full set you own to add ' + Cards.currency( 4 ) + ' to the rent value. (Except stations and utilities.)',
+			us: 'Add onto any full set you own to add ' + Cards.currency( 4 ) + ' to the rent value. (Except railroads and utilities.)'
+		},
 		icon: '🏨'
 	},
 	house: {
 		title: 'House',
-		description: 'Add onto any full set you own to add ' + Cards.currency( 3 ) + ' to the rent value. (Except railroads and utilities.)',
+		description: {
+			gb: 'Add onto any full set you own to add ' + Cards.currency( 3 ) + ' to the rent value. (Except stations and utilities.)',
+			us: 'Add onto any full set you own to add ' + Cards.currency( 3 ) + ' to the rent value. (Except railroads and utilities.)'
+		},
 		icon: '🏠'
 	},
 	birthday: {
@@ -514,5 +522,18 @@ Cards.data.actions = {
 		title: 'Sly deal',
 		description: 'Steal a property from the player of your choice. (Cannot be part of a full set.)',
 		icon: '🤫'
+	},
+	rentAll: {
+		// 'All' means all colours
+		description: {
+			gb: 'Force one player to pay you rent for properties you own in one of these colours.',
+			us: 'Force one player to pay you rent for properties you own in one of these colors.'
+		}
+	},
+	rent: {
+		description: {
+			gb: 'All players pay you rent for properties you own in one of these colours.',
+			us: 'All players pay you rent for properties you own in one of these colors.'
+		}
 	}
 };

@@ -17,7 +17,7 @@ Cards.CardModel = function ( id ) {
 			this.title = Cards.data.actions[ data.name ].title;
 			break;
 		case 'wildcard':
-			this.title = 'Property wild card';
+			this.title = Cards.data.properties[ Cards.locale ].wild;
 			break;
 		case 'rent':
 			this.title = 'Rent';
