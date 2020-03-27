@@ -1,5 +1,6 @@
 .oo-ui-icon-money {
-	background-image: url( money.svg );
+	/* stylelint-disable-next-line */
+	background-image: url(money.svg);
 }
 
 .card-container {
@@ -237,8 +238,39 @@
 	border-color: #8dc #8dc #000 #000;
 }
 
-.card-rent-all {
-	border-color: #fe0 #c00 #44f #090;
+.card-rent .card-rent-all {
+	border: 0;
+	/* stylelint-disable */
+	background-image: conic-gradient(
+		#a51 36deg,
+		#5bf 36deg,
+		#5bf 72deg,
+		#f6b 72deg,
+		#f6b 108deg,
+		#fa2 108deg,
+		#fa2 144deg,
+		#c00 144deg,
+		#c00 180deg,
+		#fe0 180deg,
+		#fe0 216deg,
+		#090 216deg,
+		#090 252deg,
+		#44f 252deg,
+		#44f 288deg,
+		#000 288deg,
+		#000 324deg,
+		#8dc 324deg
+	);
+	/* stylelint-enable */
+}
+
+.card-rent .card-rent-all .card-text {
+	width: 3.5em;
+	height: 3.5em;
+	line-height: 3.5em;
+	border-radius: 50%;
+	background: #fff;
+	margin: 0 auto;
 }
 
 /* Properties */
@@ -351,24 +383,24 @@
 	/* stylelint-disable */
 	background-image: linear-gradient(
 		90deg,
-		#44f 10%,
-		#090 10%,
-		#090 20%,
-		#5bf 20%,
-		#5bf 30%,
-		#a51 30%,
-		#a51 40%,
-		#fa2 40%,
-		#fa2 50%,
-		#f6b 50%,
-		#f6b 60%,
-		#fe0 60%,
-		#fe0 70%,
-		#c00 70%,
-		#c00 80%,
-		#8dc 80%,
-		#8dc 90%,
-		#000 90%
+		#8dc 10%,
+		#000 10%,
+		#000 20%,
+		#44f 20%,
+		#44f 30%,
+		#090 30%,
+		#090 40%,
+		#fe0 40%,
+		#fe0 50%,
+		#c00 50%,
+		#c00 60%,
+		#fa2 60%,
+		#fa2 70%,
+		#f6b 70%,
+		#f6b 80%,
+		#5bf 80%,
+		#5bf 90%,
+		#a51 90%
 	);
 	/* stylelint-enable */
 }
