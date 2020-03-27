@@ -60,6 +60,10 @@
 	transform-origin: 8em 8em;
 }
 
+.game-money .card .card-value {
+	transform: rotate( 90deg );
+}
+
 .game-hand,
 .game-money,
 .game-property {
