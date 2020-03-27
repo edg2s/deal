@@ -39,6 +39,12 @@ body {
 	z-index: 1;
 }
 
+.game-audiotoggle.oo-ui-fieldLayout.oo-ui-fieldLayout-align-inline {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 2em;
+}
+
 .game-user,
 .game-log,
 .game-played {

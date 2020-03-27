@@ -8,7 +8,11 @@ Cards.GameView = function ( model ) {
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
 	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
-	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, { align: 'inline', label: 'Sounds' } );
+	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
+		classes: [ 'game-audiotoggle' ],
+		align: 'inline',
+		label: 'Sounds'
+	} );
 
 	this.userNameInput = new OO.ui.TextInputWidget()
 		.on( 'change', function () {
