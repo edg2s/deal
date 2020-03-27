@@ -18,8 +18,9 @@
 }
 
 .card {
-	background: #fff;
 	position: relative;
+	display: inline-block;
+	background: #fff;
 	box-shadow: 0 0 0.3em rgba( 0, 0, 0, 0.25 );
 	border-radius: 0.5em;
 	border: 1px solid #000;

@@ -17,7 +17,7 @@ Cards.PlayedView.prototype.update = function () {
 
 	this.cardList.clearItems().addItems(
 		view.gameView.model.cards.played.slice( -3 ).map( function ( id ) {
-			var cardView = new Cards.CardView( view.gameView, id, 'played' );
+			var cardView = new Cards.PlayableCardView( view.gameView, id, 'played' );
 			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 			return cardView;
 		} )

@@ -112,7 +112,7 @@ Cards.GameView.prototype.onHand = function () {
 	this.hand.$element.attr( 'data-hand', 'Your hand (' + this.model.hand.length + ')' );
 
 	items = this.model.hand.map( function ( id ) {
-		var cardView = new Cards.CardView( view, id, 'hand' );
+		var cardView = new Cards.PlayableCardView( view, id, 'hand' );
 		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 		return cardView;
 	} );
