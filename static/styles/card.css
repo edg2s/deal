@@ -240,6 +240,8 @@
 
 .card-rent .card-rent-all {
 	border: 0;
+	background: url( conic-all.png );
+	background-size: contain;
 	/* stylelint-disable */
 	background-image: conic-gradient(
 		#a51 36deg,
