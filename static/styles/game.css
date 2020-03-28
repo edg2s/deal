@@ -40,13 +40,14 @@ body {
 }
 
 .game-audiotoggle.oo-ui-fieldLayout.oo-ui-fieldLayout-align-inline {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 2em;
 }
 
-.game-controls > .oo-ui-labelWidget {
-	margin-right: 2em;
+.game-audiotoggle.oo-ui-fieldLayout.oo-ui-fieldLayout-align-inline,
+.game-room,
+.game-help {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0 0 2em;
 }
 
 .game-user,

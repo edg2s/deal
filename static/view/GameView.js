@@ -7,7 +7,8 @@ Cards.GameView = function ( model ) {
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
 	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
-	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help' } );
+	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help', framed: false, classes: [ 'game-help' ] } );
+	this.roomLabel = new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName, classes: [ 'game-help' ] } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
 	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
 		classes: [ 'game-audiotoggle' ],
@@ -52,8 +53,8 @@ Cards.GameView = function ( model ) {
 				$( '<div>' ).addClass( 'game-controls' ).append(
 					this.startButton.$element, this.clearButton.$element, this.drawButton.$element,
 					audioToggleField.$element,
-					new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName } ).$element,
-					this.helpButton.$element
+					this.helpButton.$element,
+					this.roomLabel.$element
 				),
 				this.$users
 			),
