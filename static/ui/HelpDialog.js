@@ -29,9 +29,17 @@ Cards.HelpDialog.prototype.initialize = function () {
 	Cards.data.cards.forEach( function ( data, card ) {
 		var cardView;
 
+		function compare( dataA, dataB ) {
+			return OO.compare( dataA, dataB ) || (
+				dataA && dataB &&
+				dataA.viewType === 'property' && dataA.viewType === dataB.viewType &&
+				dataA.color === dataB.color
+			);
+		}
+
 		types[ data.viewType ] = types[ data.viewType ] || $( '<div>' ).addClass( 'card-group' );
 
-		if ( !OO.compare( lastData, data ) ) {
+		if ( !compare( lastData, data ) ) {
 			count = 1;
 			cardView = new Cards.CardView( card );
 			cardView.$count = $( '<div>' ).addClass( 'card-count' );

@@ -5,6 +5,7 @@ Cards.CardModel = function ( id ) {
 	this.type = data.type;
 	this.viewType = data.viewType;
 	this.name = data.name;
+	this.color = data.color;
 
 	switch ( data.viewType ) {
 		case 'money':

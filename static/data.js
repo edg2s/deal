@@ -372,14 +372,19 @@ Cards.data.cardTypes = [
 Cards.data.cards = [];
 
 Cards.data.cardTypes.forEach( function ( card ) {
-	var i;
+	var i, data;
 	for ( i = 0; i < card.count; i++ ) {
-		Cards.data.cards.push( {
+		data = {
 			type: card.type,
 			viewType: card.viewType || card.type,
 			name: card.name,
 			value: card.value
-		} );
+		};
+		if ( data.viewType === 'property' ) {
+			data.color = data.name.replace( /[0-9]+/, '' )
+		}
+
+		Cards.data.cards.push( data );
 	}
 } );
 
