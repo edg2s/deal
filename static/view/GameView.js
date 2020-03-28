@@ -42,7 +42,7 @@ Cards.GameView = function ( model ) {
 	this.$users = $( '<div>' ).addClass( 'game-users' );
 	this.played = new Cards.PlayedView( this );
 	this.played.on( 'cardAction', this.emit.bind( this, 'cardAction' ) );
-	this.hand = new Cards.CardList( { classes: [ 'game-hand' ] } );
+	this.hand = new Cards.CardList( 'hand', { classes: [ 'game-hand' ] } );
 	this.hand.on( 'reorder', this.onReorder.bind( this, 'hidden' ) );
 	// Current user's view
 	this.currentUserView = null;
@@ -118,7 +118,7 @@ Cards.GameView.prototype.onHand = function () {
 	this.hand.$element.attr( 'data-hand', 'Your hand (' + this.model.hand.length + ')' );
 
 	items = this.model.hand.map( function ( id ) {
-		var cardView = new Cards.PlayableCardView( view, id, 'hand' );
+		var cardView = new Cards.PlayableCardView( view, id, view.hand );
 		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 		return cardView;
 	} );

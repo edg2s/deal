@@ -1,9 +1,11 @@
-Cards.CardList = function ( config ) {
+Cards.CardList = function ( location, config ) {
 	// Configuration initialization
 	config = config || {};
 
 	// Parent constructor
 	Cards.CardList.parent.call( this, config );
+
+	this.location = location;
 
 	// Mixin constructors
 	OO.ui.mixin.DraggableGroupElement.call( this, $.extend( {

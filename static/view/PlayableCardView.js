@@ -1,5 +1,5 @@
-Cards.PlayableCardView = function ( gameView, id, location, isCurrentUser ) {
-	var buttons, items,
+Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
+	var buttons, items, location,
 		playButton, moneyButton, rotateButton, passButton, discardButton, undoButton;
 
 	Cards.PlayableCardView.super.call( this );
@@ -8,7 +8,8 @@ Cards.PlayableCardView = function ( gameView, id, location, isCurrentUser ) {
 	this.gameView = gameView;
 	this.cardView = new Cards.CardView( id );
 	this.model = new Cards.CardModel( id );
-	this.location = location;
+	this.cardList = cardList;
+	location = this.cardList.location;
 
 	this.$element.addClass( 'card-container' ).append( this.cardView.$element );
 
@@ -28,7 +29,7 @@ Cards.PlayableCardView = function ( gameView, id, location, isCurrentUser ) {
 	rotateButton.on( 'click', this.onRotate.bind( this ) );
 	discardButton.on( 'click', this.onDiscard.bind( this ) );
 	passButton.on( 'click', this.onPass.bind( this ) );
-	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, this.location ) );
+	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, location ) );
 
 	items = [];
 	if ( location !== 'played' ) {

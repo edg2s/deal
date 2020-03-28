@@ -4,7 +4,7 @@ Cards.PlayedView = function ( gameView ) {
 
 	this.gameView = gameView;
 
-	this.cardList = new Cards.CardList();
+	this.cardList = new Cards.CardList( 'played' );
 
 	this.$element.addClass( 'game-played' ).append( this.cardList.$element );
 };
@@ -17,7 +17,7 @@ Cards.PlayedView.prototype.update = function () {
 
 	this.cardList.clearItems().addItems(
 		view.gameView.model.cards.played.slice( -3 ).map( function ( id ) {
-			var cardView = new Cards.PlayableCardView( view.gameView, id, 'played' );
+			var cardView = new Cards.PlayableCardView( view.gameView, id, view.cardList );
 			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 			return cardView;
 		} )
