@@ -34,14 +34,18 @@ Cards.UserView = function ( userId, gameView ) {
 	).attr( 'data-user', gameModel.users[ userId ] + ' (' + gameModel.getHand( userId ).hidden + ' in hand)' );
 	this.property.addItems(
 		gameModel.getHand( userId ).property.map( function ( id ) {
-			var cardView = new Cards.PlayableCardView( view.gameView, id, view.property, view.isCurrentUser );
+			var cardView = new Cards.PlayableCardView(
+				view.gameView, id, view.property, view.isCurrentUser
+			);
 			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 			return cardView;
 		} )
 	);
 	this.money.addItems(
 		gameModel.getHand( userId ).money.map( function ( id ) {
-			var cardView = new Cards.PlayableCardView( view.gameView, id, view.money, view.isCurrentUser );
+			var cardView = new Cards.PlayableCardView(
+				view.gameView, id, view.money, view.isCurrentUser
+			);
 			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 			return cardView;
 		} )

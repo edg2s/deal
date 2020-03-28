@@ -381,7 +381,7 @@ Cards.data.cardTypes.forEach( function ( card ) {
 			value: card.value
 		};
 		if ( data.viewType === 'property' ) {
-			data.color = data.name.replace( /[0-9]+/, '' )
+			data.color = data.name.replace( /[0-9]+/, '' );
 		}
 
 		Cards.data.cards.push( data );
