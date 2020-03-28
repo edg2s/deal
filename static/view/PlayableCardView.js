@@ -109,7 +109,7 @@ Cards.PlayableCardView.prototype.playAsPropertyOrMoney = function () {
 Cards.PlayableCardView.prototype.passTo = function ( userId ) {
 	this.emit(
 		'action',
-		this.location === 'money' ? 'passMoney' : 'passProperty',
+		this.cardList.location === 'money' ? 'passMoney' : 'passProperty',
 		this.model.id,
 		userId
 	);
