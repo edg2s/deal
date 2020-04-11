@@ -4,15 +4,15 @@
 		"test": "eslint --cache . && stylelint static/**/*.css"
 	},
 	"dependencies": {
-		"ejs": "^3.0.1",
+		"ejs": "^3.0.2",
 		"express": "^4.17.1",
 		"oojs": "^3.0.1",
 		"shuffle-array": "^1.0.1",
 		"socket.io": "^2.3.0"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "^0.15.0",
-		"stylelint": "^13.2.1",
-		"stylelint-config-wikimedia": "^0.9.0"
+		"eslint-config-wikimedia": "^0.15.1",
+		"stylelint": "^13.3.2",
+		"stylelint-config-wikimedia": "^0.10.0"
 	}
 }

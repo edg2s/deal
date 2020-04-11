@@ -14,6 +14,7 @@ function initApp() {
 		res.render( 'index' );
 	} );
 
+	// eslint-disable-next-line prefer-regex-literals
 	app.get( new RegExp( '/game/(.*)' ), ( req, res ) => {
 		var roomName = req.params[ 0 ];
 
