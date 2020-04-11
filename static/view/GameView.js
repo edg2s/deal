@@ -6,7 +6,8 @@ Cards.GameView = function ( model ) {
 
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
 	this.clearButton = new OO.ui.ButtonWidget( { label: 'Clear game', flags: [ 'destructive' ] } );
-	this.drawButton = new OO.ui.ButtonWidget( { label: 'Draw 2 cards', flags: [ 'progressive' ] } );
+	this.draw2Button = new OO.ui.ButtonWidget( { label: 'Draw 2', flags: [ 'progressive' ] } );
+	this.draw5Button = new OO.ui.ButtonWidget( { label: 'Draw 5' } );
 	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help', framed: false, classes: [ 'game-help' ] } );
 	this.roomLabel = new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName, classes: [ 'game-help' ] } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
@@ -24,7 +25,8 @@ Cards.GameView = function ( model ) {
 	this.startButton.on( 'click', view.emit.bind( view, 'command', 'start' ) );
 	this.clearButton.on( 'click', this.onClearClick.bind( this ) );
 	// Debounce 1000ms to avoid accidental double deal
-	this.drawButton.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw' ), 1000, true ) );
+	this.draw2Button.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw', 2 ), 1000, true ) );
+	this.draw5Button.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw', 5 ), 1000, true ) );
 	this.helpButton.on( 'click', function () {
 		OO.ui.getWindowManager().openWindow( 'help' );
 	} );
@@ -51,7 +53,8 @@ Cards.GameView = function ( model ) {
 		$( '<div>' ).addClass( 'game-columns' ).append(
 			$( '<div>' ).addClass( 'game-left' ).append(
 				$( '<div>' ).addClass( 'game-controls' ).append(
-					this.startButton.$element, this.clearButton.$element, this.drawButton.$element,
+					this.startButton.$element, this.clearButton.$element,
+					this.draw2Button.$element, this.draw5Button.$element,
 					audioToggleField.$element,
 					this.helpButton.$element,
 					this.roomLabel.$element
@@ -92,7 +95,10 @@ Cards.GameView.prototype.updateButtons = function () {
 		this.model.state === 'started' ||
 		Object.keys( this.model.users ).length <= 1
 	);
-	this.drawButton.setDisabled(
+	this.draw2Button.setDisabled(
+		this.model.state !== 'started'
+	);
+	this.draw5Button.setDisabled(
 		this.model.state !== 'started'
 	);
 };

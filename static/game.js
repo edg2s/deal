@@ -23,8 +23,12 @@
 
 		$game.append( view.$element );
 
-		view.on( 'command', function ( arg ) {
-			socket.emit( 'command', arg );
+		view.on( 'command', function () {
+			var args = Array.prototype.slice.call( arguments );
+			socket.emit.apply(
+				socket,
+				[ 'command' ].concat( args )
+			);
 		} );
 
 		view.on( 'userName', function () {

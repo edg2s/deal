@@ -104,8 +104,11 @@ function createServer( app ) {
 					context.broadcoast( 'sound', [ 'card', 'card', 'card', 'card' ], 150 );
 					break;
 				case 'draw':
-					model.deal( userId, 2 );
-					context.broadcoast( 'sound', [ 'card', 'card' ], 300 );
+					{
+						const count = args[ 0 ];
+						model.deal( userId, count );
+						context.broadcoast( 'sound', Array( count ).fill( 'card', 'card' ), 300 );
+					}
 					break;
 				case 'userName':
 					model.setUserName( userId, args[ 0 ] );
