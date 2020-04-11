@@ -64,7 +64,14 @@ Cards.GameView = function ( model ) {
 						this.userNameInput.$element
 					),
 					this.played.$element,
-					this.$log
+					this.$log,
+					new OO.ui.ButtonWidget( {
+						framed: false,
+						href: 'https://github.com/edg2s/deal',
+						target: '_blank',
+						label: 'Source code',
+						icon: 'code'
+					} ).$element
 				)
 			)
 		),
