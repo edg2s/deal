@@ -18,7 +18,7 @@ Cards.UserView = function ( userId, gameView ) {
 		classes: [ 'game-money' ]
 	} );
 
-	if ( !gameModel.users[ userId ] ) {
+	if ( !( userId in gameModel.users ) ) {
 		// User not in game
 		return;
 	}

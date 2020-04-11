@@ -33,8 +33,11 @@
 
 		view.on( 'userName', function () {
 			var userName = view.getUserName();
-			socket.emit( 'command', 'userName', userName );
-			localStorage.setItem( 'cards-userName', userName );
+			if ( userName ) {
+				// Never send a blank username
+				socket.emit( 'command', 'userName', userName );
+				localStorage.setItem( 'cards-userName', userName );
+			}
 		} );
 
 		view.on( 'cardAction', function () {
