@@ -1,7 +1,8 @@
 {
 	"scripts": {
 		"start": "node index.js",
-		"test": "eslint --cache . && stylelint static/**/*.css"
+		"test": "eslint --cache . && stylelint static/**/*.css",
+		"postinstall": "cd static && npm install"
 	},
 	"dependencies": {
 		"ejs": "^3.0.2",
