@@ -17,4 +17,4 @@ Start the server from the root directory:
 npm start
 ```
 
-Then go to `localhost:3003` in a browser.
+Then go to [`localhost:3003`](http://localhost:3003) in a browser.
