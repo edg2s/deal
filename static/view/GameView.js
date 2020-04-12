@@ -115,6 +115,10 @@ Cards.GameView.prototype.log = function ( message ) {
 	);
 };
 
+Cards.GameView.prototype.clearLog = function () {
+	this.$log.empty();
+};
+
 Cards.GameView.prototype.onCards = function () {
 	this.played.update();
 	this.onUsers();

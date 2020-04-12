@@ -55,6 +55,7 @@
 		socket.on( 'clear', function () {
 			socket.emit( 'command', 'join' );
 			socket.emit( 'command', 'userName', view.getUserName() );
+			view.clearLog();
 		} );
 
 		socket.on( 'state', function ( state ) {
