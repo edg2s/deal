@@ -73,6 +73,7 @@ Cards.GameView = function ( model ) {
 						href: 'https://github.com/edg2s/deal',
 						target: '_blank',
 						label: 'Source code',
+						flags: [ 'progressive' ],
 						icon: 'code'
 					} ).$element
 				)
