@@ -21,7 +21,6 @@ class Model {
 			rotated: {}
 		};
 		this.state = 'init';
-		this.log( 'Game cleared' );
 		this.emit( 'cards' );
 		this.emit( 'users' );
 		this.emit( 'state' );
