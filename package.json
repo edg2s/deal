@@ -1,4 +1,5 @@
 {
+	"name": "deal",
 	"scripts": {
 		"start": "node index.js",
 		"test": "eslint --cache . && stylelint static/**/*.css",
