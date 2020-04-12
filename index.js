@@ -43,8 +43,8 @@ function createModel( context, roomName ) {
 		context.broadcoast( 'state', model.state );
 	} );
 
-	model.on( 'log', ( message ) => {
-		context.broadcoast( 'log', message );
+	model.on( 'log', ( message, type ) => {
+		context.broadcoast( 'log', message, type );
 	} );
 
 	return model;

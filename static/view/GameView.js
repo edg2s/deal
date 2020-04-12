@@ -104,7 +104,7 @@ Cards.GameView.prototype.updateButtons = function () {
 	);
 };
 
-Cards.GameView.prototype.log = function ( message ) {
+Cards.GameView.prototype.log = function ( message, type ) {
 	message = message.replace(
 		/%card-([0-9]+)/,
 		function () {
@@ -112,7 +112,16 @@ Cards.GameView.prototype.log = function ( message ) {
 		}
 	);
 	this.$log.prepend(
-		$( '<div>' ).addClass( 'game-message' ).text( message )
+		$( '<div>' )
+			.addClass( 'game-message' )
+			// The following classes are used here:
+			// * game-message-discard
+			// * game-message-game
+			// * game-message-pass
+			// * game-message-play
+			// * game-message-undo
+			.addClass( 'game-message-' + type )
+			.text( message )
 	);
 };
 

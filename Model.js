@@ -66,7 +66,7 @@ class Model {
 			this.dealAll( 7 );
 			this.state = 'started';
 			this.emit( 'state' );
-			this.log( 'Random user order: ' + shuffle( Object.values( this.users ) ).join( ', ' ) );
+			this.log( '🎲 Random user order: ' + shuffle( Object.values( this.users ) ).join( ', ' ), 'game' );
 		}
 	}
 
@@ -75,7 +75,6 @@ class Model {
 		Object.keys( this.users ).forEach( ( userId ) => {
 			model.deal( userId, n, true );
 		} );
-		this.log( 'Dealt ' + n + ' cards to all players' );
 		this.emit( 'cards' );
 	}
 
@@ -83,14 +82,14 @@ class Model {
 		const hand = this.getHand( userId );
 		const dealt = this.cards.deck.splice( 0, n );
 		hand.hidden = hand.hidden.concat( dealt );
-		this.log( 'Dealt ' + dealt.length + ' cards to ' + this.users[ userId ] );
+		this.log( '🎁 Dealt ' + dealt.length + ' cards to ' + this.users[ userId ], 'game' );
 
 		if ( !this.cards.deck.length ) {
-			this.log( 'Draw pile ran out' );
+			this.log( '⚠️ Draw pile ran out', 'game' );
 			if ( this.cards.played.length ) {
 				this.cards.deck = shuffle( this.cards.played );
 				this.cards.played = [];
-				this.log( 'Shuffled the played cards' );
+				this.log( '🔀 Shuffled the played cards', 'game' );
 
 				// Deal remaining cards
 				if ( dealt.length < n ) {
@@ -104,8 +103,8 @@ class Model {
 		}
 	}
 
-	log( message ) {
-		this.emit( 'log', message );
+	log( message, type ) {
+		this.emit( 'log', message, type );
 	}
 
 	reorder( userId, location, cardId, index ) {
@@ -131,15 +130,20 @@ class Model {
 		}
 	}
 
-	move( cardId, from, to, userId, message ) {
+	move( cardId, from, to, userId, message, icon, type ) {
 		const cardIndex = from.indexOf( cardId );
-		this.log( this.users[ userId ] + ' ' + message.replace( '%card', ' %card-' + cardId ) );
+		this.log(
+			( icon ? icon + ' ' : '' ) +
+			this.users[ userId ] + ' ' +
+			message.replace( '%card', ' %card-' + cardId ),
+			type
+		);
 		if ( cardIndex !== -1 ) {
 			from.splice( cardIndex, 1 );
 			to.push( cardId );
 			this.emit( 'cards' );
 		} else {
-			this.log( 'move: card not found in hand' );
+			console.log( 'move: card not found in hand' );
 		}
 	}
 
@@ -149,7 +153,9 @@ class Model {
 			this.getHand( userId ).hidden,
 			this.getHand( userId ).property,
 			userId,
-			'played %card'
+			'played %card',
+			'🏙️',
+			'play'
 		);
 	}
 
@@ -159,7 +165,9 @@ class Model {
 			this.getHand( userId ).hidden,
 			this.getHand( userId ).money,
 			userId,
-			'played money %card'
+			'played money %card',
+			'💰',
+			'play'
 		);
 	}
 
@@ -169,7 +177,9 @@ class Model {
 			this.getHand( userId ).hidden,
 			this.cards.played,
 			userId,
-			'played %card'
+			'played %card',
+			'▶️',
+			'play'
 		);
 	}
 
@@ -179,7 +189,9 @@ class Model {
 			this.getHand( userId ).hidden,
 			this.cards.deck,
 			userId,
-			'discarded a card'
+			'discarded a card',
+			'🗑️',
+			'discard'
 		);
 	}
 
@@ -199,7 +211,9 @@ class Model {
 			this.getHand( userId ).property,
 			this.getHand( targetUserid ).property,
 			userId,
-			'passed %card to ' + targetUserName
+			'passed %card to ' + targetUserName,
+			'🏙️',
+			'pass'
 		);
 	}
 
@@ -210,7 +224,9 @@ class Model {
 			this.getHand( userId ).money,
 			this.getHand( targetUserid ).money,
 			userId,
-			'passed %card to ' + targetUserName
+			'passed %card to ' + targetUserName,
+			'💰',
+			'pass'
 		);
 	}
 
@@ -225,7 +241,15 @@ class Model {
 				sourceDeck = this.getHand( userId )[ sourceLocation ];
 				break;
 		}
-		this.move( cardId, sourceDeck, this.getHand( userId ).hidden, userId, 'took back %card' );
+		this.move(
+			cardId,
+			sourceDeck,
+			this.getHand( userId ).hidden,
+			userId,
+			'took back %card',
+			'↩️',
+			'undo'
+		);
 	}
 }
 

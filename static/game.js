@@ -74,8 +74,8 @@
 			model.setHand( hand );
 		} );
 
-		socket.on( 'log', function ( message ) {
-			view.log( message );
+		socket.on( 'log', function ( message, type ) {
+			view.log( message, type );
 		} );
 
 		socket.on( 'sound', function ( sounds, spacing ) {

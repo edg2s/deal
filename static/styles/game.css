@@ -76,6 +76,23 @@ body {
 	margin-bottom: 0.5em;
 }
 
+.game-message-discard,
+.game-message-undo {
+	color: #c44;
+}
+
+.game-message-game {
+	color: #996;
+}
+
+.game-message-pass {
+	color: #79c;
+}
+
+.game-message-play {
+	color: #000;
+}
+
 .game-message:first-child {
 	font-weight: bold;
 	font-size: 1.4em;
