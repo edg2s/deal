@@ -6,15 +6,15 @@
 		"postinstall": "cd static && npm install"
 	},
 	"dependencies": {
-		"ejs": "^3.0.2",
+		"ejs": "^3.1.2",
 		"express": "^4.17.1",
 		"oojs": "^3.0.1",
 		"shuffle-array": "^1.0.1",
 		"socket.io": "^2.3.0"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "^0.15.1",
-		"stylelint": "^13.3.2",
-		"stylelint-config-wikimedia": "^0.10.0"
+		"eslint-config-wikimedia": "^0.15.3",
+		"stylelint": "^13.3.3",
+		"stylelint-config-wikimedia": "^0.10.1"
 	}
 }
