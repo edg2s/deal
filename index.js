@@ -1,3 +1,5 @@
+'use strict';
+
 const
 	express = require( 'express' ),
 	http = require( 'http' ),
@@ -16,7 +18,7 @@ function initApp() {
 
 	// eslint-disable-next-line prefer-regex-literals
 	app.get( new RegExp( '/game/(.*)' ), ( req, res ) => {
-		var roomName = req.params[ 0 ];
+		const roomName = req.params[ 0 ];
 
 		if ( roomName !== roomName.toLowerCase() ) {
 			res.redirect( '/game/' + roomName.toLowerCase() );
