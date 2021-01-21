@@ -10,7 +10,7 @@
 		"express": "^4.17.1",
 		"oojs": "^5.0.0",
 		"shuffle-array": "^1.0.1",
-		"socket.io": "^2.3.0"
+		"socket.io": "^2.4.0"
 	},
 	"devDependencies": {
 		"eslint-config-wikimedia": "^0.16.1",
