@@ -6,7 +6,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	this.cardView = new Cards.CardView( id );
 	this.model = new Cards.CardModel( id );
 	this.cardList = cardList;
-	var location = this.cardList.location;
+	const location = this.cardList.location;
 
 	this.$element.addClass( 'card-container' ).append( this.cardView.$element );
 
@@ -14,14 +14,14 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 		this.cardView.$element.addClass( 'card-rotated' );
 	}
 
-	var moveLeftButton = new OO.ui.ButtonWidget( { icon: 'previous', title: 'Move left' } );
-	var moveRightButton = new OO.ui.ButtonWidget( { icon: 'next', title: 'Move right' } );
-	var playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
-	var moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
-	var rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
-	var passButton = new OO.ui.ButtonWidget( { icon: 'userGroup', title: 'Pass to another player' } );
-	var discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
-	var undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
+	const moveLeftButton = new OO.ui.ButtonWidget( { icon: 'previous', title: 'Move left' } );
+	const moveRightButton = new OO.ui.ButtonWidget( { icon: 'next', title: 'Move right' } );
+	const playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
+	const moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
+	const rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
+	const passButton = new OO.ui.ButtonWidget( { icon: 'userGroup', title: 'Pass to another player' } );
+	const discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
+	const undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
 
 	moveLeftButton.on( 'click', this.onMove.bind( this, -1 ) );
 	moveRightButton.on( 'click', this.onMove.bind( this, 1 ) );
@@ -32,7 +32,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	passButton.on( 'click', this.onPass.bind( this ) );
 	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, location ) );
 
-	var items = [];
+	const items = [];
 	if ( Cards.isMobile && ( location === 'hand' || isCurrentUser ) ) {
 		items.push( moveLeftButton );
 	}
@@ -71,7 +71,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	}
 
 	if ( items.length ) {
-		var buttons = new OO.ui.ButtonGroupWidget( {
+		const buttons = new OO.ui.ButtonGroupWidget( {
 			items: items
 		} );
 
@@ -92,13 +92,15 @@ Cards.PlayableCardView.prototype.onPlay = function () {
 
 Cards.PlayableCardView.prototype.playAsPropertyOrMoney = function () {
 	switch ( this.model.type ) {
-		case 'property':
+		case 'property': {
 			this.emit( 'action', 'property', this.model.id );
 			break;
+		}
 		case 'money':
-		case 'action':
+		case 'action': {
 			this.emit( 'action', 'money', this.model.id );
 			break;
+		}
 	}
 };
 
@@ -112,17 +114,15 @@ Cards.PlayableCardView.prototype.passTo = function ( userId ) {
 };
 
 Cards.PlayableCardView.prototype.onDiscard = function () {
-	var view = this;
-
 	OO.ui.confirm( 'This cannot be undone.', {
 		title: 'Discard this card to the bottom of the deck?',
 		actions: [
 			{ action: 'cancel', label: 'Cancel', flags: [ 'primary' ] },
 			{ action: 'accept', label: 'Discard', flags: [ 'destructive', 'primary' ] }
 		]
-	} ).then( function ( result ) {
+	} ).then( ( result ) => {
 		if ( result ) {
-			view.emit( 'action', 'discard', view.model.id );
+			this.emit( 'action', 'discard', this.model.id );
 		}
 	} );
 };
@@ -134,15 +134,14 @@ Cards.PlayableCardView.prototype.onRotate = function () {
 };
 
 Cards.PlayableCardView.prototype.onPass = function () {
-	var view = this;
-	var cardModel = this.model;
-	var gameModel = this.gameView.model;
-	var actions = [
+	const cardModel = this.model;
+	const gameModel = this.gameView.model;
+	const actions = [
 		{ action: 'cancel', label: 'Cancel', flags: [ 'destructive' ] }
 	];
 
-	Object.keys( gameModel.users ).forEach( function ( userId ) {
-		var hand = gameModel.getHand( userId );
+	Object.keys( gameModel.users ).forEach( ( userId ) => {
+		const hand = gameModel.getHand( userId );
 		if (
 			hand.property.indexOf( cardModel.id ) === -1 &&
 			hand.money.indexOf( cardModel.id ) === -1
@@ -158,17 +157,17 @@ Cards.PlayableCardView.prototype.onPass = function () {
 			actions: actions,
 			size: 'medium'
 		}
-	).closing.then( function ( data ) {
+	).closing.then( ( data ) => {
 		if ( data && data.action !== 'cancel' ) {
-			view.passTo( data.action );
+			this.passTo( data.action );
 		}
 	} );
 };
 
 Cards.PlayableCardView.prototype.onMove = function ( dir ) {
-	var items = this.cardList.items;
-	var index = items.indexOf( this );
-	var newIndex = index + dir;
+	const items = this.cardList.items;
+	const index = items.indexOf( this );
+	const newIndex = index + dir;
 
 	if ( newIndex >= 0 && newIndex < items.length ) {
 		this.cardList.emit( 'reorder', this, index + dir );

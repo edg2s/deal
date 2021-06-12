@@ -54,7 +54,7 @@ function createModel( context, roomName ) {
 
 function createServer( app ) {
 	const server = http.createServer( app ).listen( 3003, () => {
-		console.log( 'listening on *:3003' );
+		console.log( 'listening on http://localhost:3003' );
 	} );
 	const io = socketIO( server );
 	io.on( 'connection', ( socket ) => {
@@ -93,28 +93,33 @@ function createServer( app ) {
 
 		socket.on( 'command', ( command, ...args ) => {
 			switch ( command ) {
-				case 'join':
+				case 'join': {
 					model.addUser( userId );
 					break;
-				case 'clear':
+				}
+				case 'clear': {
 					model.clear();
 					context.broadcoast( 'clear' );
 					context.broadcoast( 'sound', [ 'shuffle' ] );
 					break;
-				case 'start':
+				}
+				case 'start': {
 					model.start();
 					context.broadcoast( 'sound', [ 'card', 'card', 'card', 'card' ], 150 );
 					break;
-				case 'draw':
+				}
+				case 'draw': {
 					{
 						const count = args[ 0 ];
 						model.deal( userId, count );
 						context.broadcoast( 'sound', Array( count ).fill( 'card', 'card' ), 300 );
 					}
 					break;
-				case 'userName':
+				}
+				case 'userName': {
 					model.setUserName( userId, args[ 0 ] );
 					break;
+				}
 			}
 		} );
 
@@ -128,9 +133,10 @@ function createServer( app ) {
 				case 'passMoney':
 				case 'undo':
 				case 'discard':
-				case 'reorder':
+				case 'reorder': {
 					model[ command ].apply( model, [ userId ].concat( args ) );
 					break;
+				}
 			}
 			switch ( command ) {
 				case 'property':
@@ -139,9 +145,10 @@ function createServer( app ) {
 				case 'passProperty':
 				case 'passMoney':
 				case 'undo':
-				case 'discard':
+				case 'discard': {
 					context.broadcoast( 'sound', [ 'card' ] );
 					break;
+				}
 			}
 		} );
 

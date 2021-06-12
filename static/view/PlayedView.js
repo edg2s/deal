@@ -13,12 +13,10 @@ OO.inheritClass( Cards.PlayedView, OO.ui.Widget );
 OO.mixinClass( Cards.PlayedView, Cards.DroppableView );
 
 Cards.PlayedView.prototype.update = function () {
-	var view = this;
-
 	this.cardList.clearItems().addItems(
-		view.gameView.model.cards.played.slice( -3 ).map( function ( id ) {
-			var cardView = new Cards.PlayableCardView( view.gameView, id, view.cardList );
-			cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
+		this.gameView.model.cards.played.slice( -3 ).map( ( id ) => {
+			const cardView = new Cards.PlayableCardView( this.gameView, id, this.cardList );
+			cardView.on( 'action', this.emit.bind( this, 'cardAction' ) );
 			return cardView;
 		} )
 	);
@@ -27,15 +25,15 @@ Cards.PlayedView.prototype.update = function () {
 };
 
 Cards.PlayedView.prototype.isDroppable = function () {
-	var gameView = this.gameView;
-	var cardView = gameView.hand.dragItem;
+	const gameView = this.gameView;
+	const cardView = gameView.hand.dragItem;
 
 	// Hand -> Played
 	return cardView && cardView.model.type === 'action';
 };
 
 Cards.PlayedView.prototype.drop = function () {
-	var gameView = this.gameView;
+	const gameView = this.gameView;
 
 	gameView.hand.dragItem.onPlay();
 };

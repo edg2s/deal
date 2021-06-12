@@ -23,11 +23,11 @@ Cards.HelpDialog.prototype.initialize = function () {
 
 	Cards.HelpDialog.super.prototype.initialize.apply( this, arguments );
 
-	var types = {};
-	var count = 1;
-	var lastData, lastCard;
-	Cards.data.cards.forEach( function ( data, card ) {
-		var cardView;
+	const types = {};
+	let count = 1;
+	let lastData, lastCard;
+	Cards.data.cards.forEach( ( data, card ) => {
+		let cardView;
 
 		function compare( dataA, dataB ) {
 			return OO.compare( dataA, dataB ) || (
@@ -51,7 +51,7 @@ Cards.HelpDialog.prototype.initialize = function () {
 		}
 		lastData = data;
 	} );
-	for ( var type in types ) {
+	for ( const type in types ) {
 		this.contentPanel.$element.append(
 			$( '<h3>' ).text( type ),
 			types[ type ]
@@ -62,10 +62,9 @@ Cards.HelpDialog.prototype.initialize = function () {
 };
 
 Cards.HelpDialog.prototype.getActionProcess = function ( action ) {
-	var dialog = this;
 	if ( action ) {
-		return new OO.ui.Process( function () {
-			dialog.close( { action: action } );
+		return new OO.ui.Process( () => {
+			this.close( { action: action } );
 		} );
 	}
 	return Cards.HelpDialog.parent.prototype.getActionProcess.call( this, action );

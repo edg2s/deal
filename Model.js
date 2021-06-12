@@ -73,9 +73,8 @@ class Model {
 	}
 
 	dealAll( n ) {
-		const model = this;
 		Object.keys( this.users ).forEach( ( userId ) => {
-			model.deal( userId, n, true );
+			this.deal( userId, n, true );
 		} );
 		this.emit( 'cards' );
 	}
@@ -235,13 +234,15 @@ class Model {
 	undo( userId, cardId, sourceLocation ) {
 		let sourceDeck;
 		switch ( sourceLocation ) {
-			case 'played':
+			case 'played': {
 				sourceDeck = this.cards.played;
 				break;
+			}
 			case 'property':
-			case 'money':
+			case 'money': {
 				sourceDeck = this.getHand( userId )[ sourceLocation ];
 				break;
+			}
 		}
 		this.move(
 			cardId,

@@ -371,9 +371,9 @@ Cards.data.cardTypes = [
 
 Cards.data.cards = [];
 
-Cards.data.cardTypes.forEach( function ( card ) {
-	for ( var i = 0; i < card.count; i++ ) {
-		var data = {
+Cards.data.cardTypes.forEach( ( card ) => {
+	for ( let i = 0; i < card.count; i++ ) {
+		const data = {
 			type: card.type,
 			viewType: card.viewType || card.type,
 			name: card.name,
