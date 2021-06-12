@@ -1,6 +1,5 @@
 Cards.GameView = function ( model ) {
-	var audioToggleField,
-		view = this;
+	var view = this;
 
 	Cards.GameView.super.call( this );
 
@@ -11,7 +10,7 @@ Cards.GameView = function ( model ) {
 	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help', framed: false, classes: [ 'game-help' ] } );
 	this.roomLabel = new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName, classes: [ 'game-help' ] } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
-	audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
+	var audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
 		classes: [ 'game-audiotoggle' ],
 		align: 'inline',
 		label: 'Sounds'
@@ -139,12 +138,11 @@ Cards.GameView.prototype.onState = function () {
 };
 
 Cards.GameView.prototype.onHand = function () {
-	var items,
-		view = this;
+	var view = this;
 
 	this.hand.$element.attr( 'data-hand', 'Your hand (' + this.model.hand.length + ')' );
 
-	items = this.model.hand.map( function ( id ) {
+	var items = this.model.hand.map( function ( id ) {
 		var cardView = new Cards.PlayableCardView( view, id, view.hand );
 		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
 		return cardView;
@@ -153,13 +151,13 @@ Cards.GameView.prototype.onHand = function () {
 };
 
 Cards.GameView.prototype.onUsers = function () {
-	var view = this,
-		userIds = Object.keys( this.model.users );
+	var view = this;
 
 	this.updateButtons();
 
 	this.$users.empty();
 
+	var userIds = Object.keys( this.model.users );
 	userIds.forEach( function ( userId ) {
 		var userView = new Cards.UserView( userId, view );
 		// Pass through cardAction events

@@ -1,11 +1,9 @@
 ( function () {
-	var promise = $.Deferred().resolve().promise(),
-		model = new Cards.GameModel(),
-		view = new Cards.GameView( model ),
-		userName = localStorage.getItem( 'cards-userName' ),
-		// eslint-disable-next-line no-jquery/no-global-selector
-		$game = $( '#game' );
+	var model = new Cards.GameModel();
+	var view = new Cards.GameView( model );
+	var userName = localStorage.getItem( 'cards-userName' );
 
+	var promise = $.Deferred().resolve().promise();
 	if ( !userName ) {
 		promise = OO.ui.prompt( 'Enter your name' ).done( function ( result ) {
 			userName = result || 'Anon ' + Math.floor( Math.random() * 1000 );
@@ -21,6 +19,8 @@
 			transports: [ 'websocket' ]
 		} );
 
+		// eslint-disable-next-line no-jquery/no-global-selector
+		var $game = $( '#game' );
 		$game.append( view.$element );
 
 		view.on( 'command', function () {
@@ -32,11 +32,11 @@
 		} );
 
 		view.on( 'userName', function () {
-			var userName = view.getUserName();
-			if ( userName ) {
+			var newUserName = view.getUserName();
+			if ( newUserName ) {
 				// Never send a blank username
-				socket.emit( 'command', 'userName', userName );
-				localStorage.setItem( 'cards-userName', userName );
+				socket.emit( 'command', 'userName', newUserName );
+				localStorage.setItem( 'cards-userName', newUserName );
 			}
 		} );
 

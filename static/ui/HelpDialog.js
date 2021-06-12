@@ -15,9 +15,6 @@ Cards.HelpDialog.static.actions = [
 ];
 
 Cards.HelpDialog.prototype.initialize = function () {
-	var lastData, type, lastCard,
-		count = 1,
-		types = {};
 
 	this.contentPanel = new OO.ui.PanelLayout( {
 		padded: true,
@@ -26,6 +23,9 @@ Cards.HelpDialog.prototype.initialize = function () {
 
 	Cards.HelpDialog.super.prototype.initialize.apply( this, arguments );
 
+	var types = {};
+	var count = 1;
+	var lastData, lastCard;
 	Cards.data.cards.forEach( function ( data, card ) {
 		var cardView;
 
@@ -51,7 +51,7 @@ Cards.HelpDialog.prototype.initialize = function () {
 		}
 		lastData = data;
 	} );
-	for ( type in types ) {
+	for ( var type in types ) {
 		this.contentPanel.$element.append(
 			$( '<h3>' ).text( type ),
 			types[ type ]

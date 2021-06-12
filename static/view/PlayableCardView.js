@@ -1,8 +1,4 @@
 Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
-	var buttons, items, location,
-		moveLeftButton, moveRightButton,
-		playButton, moneyButton, rotateButton, passButton, discardButton, undoButton;
-
 	Cards.PlayableCardView.super.call( this );
 	OO.ui.mixin.DraggableElement.call( this );
 
@@ -10,7 +6,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	this.cardView = new Cards.CardView( id );
 	this.model = new Cards.CardModel( id );
 	this.cardList = cardList;
-	location = this.cardList.location;
+	var location = this.cardList.location;
 
 	this.$element.addClass( 'card-container' ).append( this.cardView.$element );
 
@@ -18,14 +14,14 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 		this.cardView.$element.addClass( 'card-rotated' );
 	}
 
-	moveLeftButton = new OO.ui.ButtonWidget( { icon: 'previous', title: 'Move left' } );
-	moveRightButton = new OO.ui.ButtonWidget( { icon: 'next', title: 'Move right' } );
-	playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
-	moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
-	rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
-	passButton = new OO.ui.ButtonWidget( { icon: 'userGroup', title: 'Pass to another player' } );
-	discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
-	undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
+	var moveLeftButton = new OO.ui.ButtonWidget( { icon: 'previous', title: 'Move left' } );
+	var moveRightButton = new OO.ui.ButtonWidget( { icon: 'next', title: 'Move right' } );
+	var playButton = new OO.ui.ButtonWidget( { icon: 'upTriangle', title: 'Play' } );
+	var moneyButton = new OO.ui.ButtonWidget( { icon: 'money', title: 'Play as money' } );
+	var rotateButton = new OO.ui.ButtonWidget( { icon: 'reload', title: 'Rotate' } );
+	var passButton = new OO.ui.ButtonWidget( { icon: 'userGroup', title: 'Pass to another player' } );
+	var discardButton = new OO.ui.ButtonWidget( { icon: 'trash', title: 'Discard', flags: [ 'destructive' ] } );
+	var undoButton = new OO.ui.ButtonWidget( { icon: 'downTriangle', title: 'Return to my hand' } );
 
 	moveLeftButton.on( 'click', this.onMove.bind( this, -1 ) );
 	moveRightButton.on( 'click', this.onMove.bind( this, 1 ) );
@@ -36,7 +32,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	passButton.on( 'click', this.onPass.bind( this ) );
 	undoButton.on( 'click', this.emit.bind( this, 'action', 'undo', this.model.id, location ) );
 
-	items = [];
+	var items = [];
 	if ( Cards.isMobile && ( location === 'hand' || isCurrentUser ) ) {
 		items.push( moveLeftButton );
 	}
@@ -75,7 +71,7 @@ Cards.PlayableCardView = function ( gameView, id, cardList, isCurrentUser ) {
 	}
 
 	if ( items.length ) {
-		buttons = new OO.ui.ButtonGroupWidget( {
+		var buttons = new OO.ui.ButtonGroupWidget( {
 			items: items
 		} );
 
@@ -138,12 +134,12 @@ Cards.PlayableCardView.prototype.onRotate = function () {
 };
 
 Cards.PlayableCardView.prototype.onPass = function () {
-	var view = this,
-		cardModel = this.model,
-		gameModel = this.gameView.model,
-		actions = [
-			{ action: 'cancel', label: 'Cancel', flags: [ 'destructive' ] }
-		];
+	var view = this;
+	var cardModel = this.model;
+	var gameModel = this.gameView.model;
+	var actions = [
+		{ action: 'cancel', label: 'Cancel', flags: [ 'destructive' ] }
+	];
 
 	Object.keys( gameModel.users ).forEach( function ( userId ) {
 		var hand = gameModel.getHand( userId );
@@ -170,9 +166,9 @@ Cards.PlayableCardView.prototype.onPass = function () {
 };
 
 Cards.PlayableCardView.prototype.onMove = function ( dir ) {
-	var items = this.cardList.items,
-		index = items.indexOf( this ),
-		newIndex = index + dir;
+	var items = this.cardList.items;
+	var index = items.indexOf( this );
+	var newIndex = index + dir;
 
 	if ( newIndex >= 0 && newIndex < items.length ) {
 		this.cardList.emit( 'reorder', this, index + dir );

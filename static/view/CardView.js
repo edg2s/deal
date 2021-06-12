@@ -1,6 +1,5 @@
 Cards.CardView = function ( id ) {
-	var $rent, actionData, description,
-		cardView = this;
+	var cardView = this;
 
 	Cards.CardView.super.call( this );
 
@@ -25,7 +24,7 @@ Cards.CardView = function ( id ) {
 		case 'property':
 			this.$element.addClass( 'card-property-' + this.model.color );
 
-			$rent = $( '<ol>' );
+			var $rent = $( '<ol>' );
 			Cards.data.rent[ this.model.color ].forEach( function ( rent ) {
 				$rent.append(
 					$( '<li>' ).text( Cards.currency( rent ) )
@@ -38,8 +37,8 @@ Cards.CardView = function ( id ) {
 			);
 			break;
 		case 'action':
-			actionData = Cards.data.actions[ this.model.name ];
-			description = typeof actionData.description === 'object' ?
+			var actionData = Cards.data.actions[ this.model.name ];
+			var description = typeof actionData.description === 'object' ?
 				actionData.description[ Cards.locale ] :
 				actionData.description;
 
