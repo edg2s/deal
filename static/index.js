@@ -1,22 +1,22 @@
 ( function () {
 	var pieces = [
-			'boot',
-			'thimble',
-			'iron',
-			'car',
-			'hat',
-			'dog'
-		],
-		roomNameInput = new OO.ui.TextInputWidget( {
-			placeholder: 'Room name (optional)'
-		} ),
-		submitButton = new OO.ui.ButtonWidget( {
-			label: 'Join / Start',
-			flags: [ 'primary', 'progressive' ]
-		} ),
-		roomNameField = new OO.ui.ActionFieldLayout( roomNameInput, submitButton, {
-			align: 'top'
-		} );
+		'boot',
+		'thimble',
+		'iron',
+		'car',
+		'hat',
+		'dog'
+	];
+	var roomNameInput = new OO.ui.TextInputWidget( {
+		placeholder: 'Room name (optional)'
+	} );
+	var submitButton = new OO.ui.ButtonWidget( {
+		label: 'Join / Start',
+		flags: [ 'primary', 'progressive' ]
+	} );
+	var roomNameField = new OO.ui.ActionFieldLayout( roomNameInput, submitButton, {
+		align: 'top'
+	} );
 
 	function random( n ) {
 		return Math.floor( Math.random() * n );

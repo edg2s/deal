@@ -1,6 +1,5 @@
 Cards.UserView = function ( userId, gameView ) {
-	var gameModel,
-		view = this;
+	var view = this;
 
 	Cards.UserView.super.call( this );
 	Cards.DroppableView.call( this );
@@ -9,8 +8,6 @@ Cards.UserView = function ( userId, gameView ) {
 	this.gameView = gameView;
 	this.isCurrentUser = this.userId === localStorage.getItem( 'cards-userId' );
 
-	gameModel = this.gameView.model;
-
 	this.property = new Cards.CardList( 'property', {
 		classes: [ 'game-property' ]
 	} );
@@ -18,6 +15,7 @@ Cards.UserView = function ( userId, gameView ) {
 		classes: [ 'game-money' ]
 	} );
 
+	var gameModel = this.gameView.model;
 	if ( !( userId in gameModel.users ) ) {
 		// User not in game
 		return;
@@ -64,8 +62,8 @@ Cards.UserView.prototype.onReorder = function ( location, card, index ) {
 };
 
 Cards.UserView.prototype.isDroppable = function () {
-	var gameView = this.gameView,
-		currentUserView = gameView.currentUserView;
+	var gameView = this.gameView;
+	var currentUserView = gameView.currentUserView;
 
 	// Hand -> Current user
 	return ( gameView.hand.dragItem && this.isCurrentUser ) ||
@@ -77,8 +75,8 @@ Cards.UserView.prototype.isDroppable = function () {
 };
 
 Cards.UserView.prototype.drop = function () {
-	var gameView = this.gameView,
-		currentUserView = gameView.currentUserView;
+	var gameView = this.gameView;
+	var currentUserView = gameView.currentUserView;
 
 	if ( currentUserView.property.dragItem && !this.isCurrentUser ) {
 		currentUserView.property.dragItem.passTo( this.userId );

@@ -27,8 +27,8 @@ Cards.PlayedView.prototype.update = function () {
 };
 
 Cards.PlayedView.prototype.isDroppable = function () {
-	var gameView = this.gameView,
-		cardView = gameView.hand.dragItem;
+	var gameView = this.gameView;
+	var cardView = gameView.hand.dragItem;
 
 	// Hand -> Played
 	return cardView && cardView.model.type === 'action';
