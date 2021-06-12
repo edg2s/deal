@@ -6,10 +6,6 @@ Cards.DroppableView = function () {
 		dragleave: this.onDroppableLeave.bind( this ),
 		drop: this.onDroppableDrop.bind( this )
 	} );
-	this.$element.on( 'dragleave', function () {
-	} );
-	this.$element.on( 'drop', function () {
-	} );
 };
 
 OO.initClass( Cards.DroppableView );
@@ -31,12 +27,11 @@ Cards.DroppableView.prototype.onDroppableOverOrEnter = function ( e ) {
 };
 
 Cards.DroppableView.prototype.onDroppableLeave = function () {
-	var view = this;
 	this.droppable = false;
 	// Avoid flicker
-	setTimeout( function () {
-		if ( !view.droppable ) {
-			view.$element.removeClass( 'droppable' );
+	setTimeout( () => {
+		if ( !this.droppable ) {
+			this.$element.removeClass( 'droppable' );
 		}
 	}, 50 );
 };

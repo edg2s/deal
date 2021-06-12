@@ -1,5 +1,5 @@
 Cards.CardModel = function ( id ) {
-	var data = Cards.data.cards[ id ];
+	const data = Cards.data.cards[ id ];
 	this.id = id;
 	this.value = data.value;
 	this.type = data.type;
@@ -8,21 +8,26 @@ Cards.CardModel = function ( id ) {
 	this.color = data.color;
 
 	switch ( data.viewType ) {
-		case 'money':
+		case 'money': {
 			this.title = Cards.currency( data.value );
 			break;
-		case 'property':
+		}
+		case 'property': {
 			this.title = Cards.data.properties[ Cards.locale ][ data.name ];
 			break;
-		case 'action':
+		}
+		case 'action': {
 			this.title = Cards.data.actions[ data.name ].title;
 			break;
-		case 'wildcard':
+		}
+		case 'wildcard': {
 			this.title = Cards.data.properties[ Cards.locale ].wild;
 			break;
-		case 'rent':
+		}
+		case 'rent': {
 			this.title = 'Rent';
 			break;
+		}
 	}
 };
 

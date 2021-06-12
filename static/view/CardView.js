@@ -1,6 +1,4 @@
 Cards.CardView = function ( id ) {
-	var cardView = this;
-
 	Cards.CardView.super.call( this );
 
 	this.model = new Cards.CardModel( id );
@@ -13,7 +11,7 @@ Cards.CardView = function ( id ) {
 		.append( this.$inner );
 
 	switch ( this.model.viewType ) {
-		case 'money':
+		case 'money': {
 			this.$element.addClass( 'card-money-' + this.model.value );
 			this.$inner.append(
 				$( '<div>' ).addClass( 'card-title' ).append(
@@ -21,11 +19,12 @@ Cards.CardView = function ( id ) {
 				)
 			);
 			break;
-		case 'property':
+		}
+		case 'property': {
 			this.$element.addClass( 'card-property-' + this.model.color );
 
-			var $rent = $( '<ol>' );
-			Cards.data.rent[ this.model.color ].forEach( function ( rent ) {
+			const $rent = $( '<ol>' );
+			Cards.data.rent[ this.model.color ].forEach( ( rent ) => {
 				$rent.append(
 					$( '<li>' ).text( Cards.currency( rent ) )
 				);
@@ -36,9 +35,10 @@ Cards.CardView = function ( id ) {
 				$rent
 			);
 			break;
-		case 'action':
-			var actionData = Cards.data.actions[ this.model.name ];
-			var description = typeof actionData.description === 'object' ?
+		}
+		case 'action': {
+			const actionData = Cards.data.actions[ this.model.name ];
+			const description = typeof actionData.description === 'object' ?
 				actionData.description[ Cards.locale ] :
 				actionData.description;
 
@@ -51,18 +51,19 @@ Cards.CardView = function ( id ) {
 				$( '<div>' ).addClass( 'card-description' ).text( description )
 			);
 			break;
-		case 'wildcard':
+		}
+		case 'wildcard': {
 			if ( this.model.name !== 'all' ) {
-				this.model.name.split( '-' ).forEach( function ( color, i ) {
-					$rent = $( '<ol>' );
-					Cards.data.rent[ color ].forEach( function ( rent ) {
+				this.model.name.split( '-' ).forEach( ( color, i ) => {
+					const $rent = $( '<ol>' );
+					Cards.data.rent[ color ].forEach( ( rent ) => {
 						$rent.append(
 							$( '<li>' ).text( Cards.currency( rent ) )
 						);
 					} );
-					cardView.$inner.append(
+					this.$inner.append(
 						$( '<div>' ).addClass( 'card-wildcard-' + i + ' card-property card-property-' + color ).append(
-							$( '<div>' ).addClass( 'card-title' ).text( cardView.model.title ),
+							$( '<div>' ).addClass( 'card-title' ).text( this.model.title ),
 							$rent
 						)
 					);
@@ -79,9 +80,10 @@ Cards.CardView = function ( id ) {
 				);
 			}
 			break;
-		case 'rent':
-			actionData = Cards.data.actions[ this.model.name === 'all' ? 'rentAll' : 'rent' ];
-			description = typeof actionData.description === 'object' ?
+		}
+		case 'rent': {
+			const actionData = Cards.data.actions[ this.model.name === 'all' ? 'rentAll' : 'rent' ];
+			const description = typeof actionData.description === 'object' ?
 				actionData.description[ Cards.locale ] :
 				actionData.description;
 
@@ -92,6 +94,7 @@ Cards.CardView = function ( id ) {
 				$( '<div>' ).addClass( 'card-description' ).text( description )
 			);
 			break;
+		}
 	}
 
 	if ( this.model.value ) {

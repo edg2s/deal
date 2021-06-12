@@ -1,6 +1,4 @@
 Cards.GameView = function ( model ) {
-	var view = this;
-
 	Cards.GameView.super.call( this );
 
 	this.startButton = new OO.ui.ButtonWidget( { label: 'Start', flags: [ 'primary', 'progressive' ] } );
@@ -10,23 +8,23 @@ Cards.GameView = function ( model ) {
 	this.helpButton = new OO.ui.ButtonWidget( { icon: 'help', label: 'Help', framed: false, classes: [ 'game-help' ] } );
 	this.roomLabel = new OO.ui.LabelWidget( { label: 'Room: ' + Cards.roomName, classes: [ 'game-help' ] } );
 	this.audioToggle = new OO.ui.CheckboxInputWidget( { selected: true } );
-	var audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
+	const audioToggleField = new OO.ui.FieldLayout( this.audioToggle, {
 		classes: [ 'game-audiotoggle' ],
 		align: 'inline',
 		label: 'Sounds'
 	} );
 
 	this.userNameInput = new OO.ui.TextInputWidget()
-		.on( 'change', function () {
-			view.emit( 'userName' );
+		.on( 'change', () => {
+			this.emit( 'userName' );
 		} );
 
-	this.startButton.on( 'click', view.emit.bind( view, 'command', 'start' ) );
+	this.startButton.on( 'click', this.emit.bind( this, 'command', 'start' ) );
 	this.clearButton.on( 'click', this.onClearClick.bind( this ) );
 	// Debounce 1000ms to avoid accidental double deal
-	this.draw2Button.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw', 2 ), 1000, true ) );
-	this.draw5Button.on( 'click', OO.ui.debounce( view.emit.bind( view, 'command', 'draw', 5 ), 1000, true ) );
-	this.helpButton.on( 'click', function () {
+	this.draw2Button.on( 'click', OO.ui.debounce( this.emit.bind( this, 'command', 'draw', 2 ), 1000, true ) );
+	this.draw5Button.on( 'click', OO.ui.debounce( this.emit.bind( this, 'command', 'draw', 5 ), 1000, true ) );
+	this.helpButton.on( 'click', () => {
 		OO.ui.getWindowManager().openWindow( 'help' );
 	} );
 
@@ -138,34 +136,30 @@ Cards.GameView.prototype.onState = function () {
 };
 
 Cards.GameView.prototype.onHand = function () {
-	var view = this;
-
 	this.hand.$element.attr( 'data-hand', 'Your hand (' + this.model.hand.length + ')' );
 
-	var items = this.model.hand.map( function ( id ) {
-		var cardView = new Cards.PlayableCardView( view, id, view.hand );
-		cardView.on( 'action', view.emit.bind( view, 'cardAction' ) );
+	const items = this.model.hand.map( ( id ) => {
+		const cardView = new Cards.PlayableCardView( this, id, this.hand );
+		cardView.on( 'action', this.emit.bind( this, 'cardAction' ) );
 		return cardView;
 	} );
 	this.hand.clearItems().addItems( items );
 };
 
 Cards.GameView.prototype.onUsers = function () {
-	var view = this;
-
 	this.updateButtons();
 
 	this.$users.empty();
 
-	var userIds = Object.keys( this.model.users );
-	userIds.forEach( function ( userId ) {
-		var userView = new Cards.UserView( userId, view );
+	const userIds = Object.keys( this.model.users );
+	userIds.forEach( ( userId ) => {
+		const userView = new Cards.UserView( userId, this );
 		// Pass through cardAction events
-		userView.on( 'cardAction', view.emit.bind( view, 'cardAction' ) );
+		userView.on( 'cardAction', this.emit.bind( this, 'cardAction' ) );
 		if ( userView.isCurrentUser ) {
-			view.currentUserView = userView;
+			this.currentUserView = userView;
 		}
-		view.$users.append( userView.$element );
+		this.$users.append( userView.$element );
 	} );
 	if ( this.currentUserView ) {
 		// Put current user at the end
@@ -178,16 +172,15 @@ Cards.GameView.prototype.onReorder = function ( location, card, index ) {
 };
 
 Cards.GameView.prototype.onClearClick = function () {
-	var view = this;
 	OO.ui.confirm( 'This cannot be undone.', {
 		title: 'Clear the whole game and start again?',
 		actions: [
 			{ action: 'cancel', label: 'Continue playing', flags: [ 'primary' ] },
 			{ action: 'accept', label: 'Clear game', flags: [ 'destructive', 'primary' ] }
 		]
-	} ).then( function ( result ) {
+	} ).then( ( result ) => {
 		if ( result ) {
-			view.emit( 'command', 'clear' );
+			this.emit( 'command', 'clear' );
 		}
 	} );
 };

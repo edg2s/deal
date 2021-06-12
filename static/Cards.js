@@ -9,14 +9,14 @@ window.Cards = {
 		shuffle: new Audio( '../audio/shuffle.mp3' )
 	},
 	playSequence: function ( sounds, spacing ) {
-		var sound = Cards.audio[ sounds[ 0 ] ].cloneNode();
+		const sound = Cards.audio[ sounds[ 0 ] ].cloneNode();
 		if ( sounds.length > 1 ) {
 			if ( spacing ) {
-				setTimeout( function () {
+				setTimeout( () => {
 					Cards.playSequence( sounds.slice( 1 ), spacing );
 				}, spacing );
 			} else {
-				$( sound ).one( 'ended', function () {
+				$( sound ).one( 'ended', () => {
 					Cards.playSequence( sounds.slice( 1 ) );
 				} );
 			}
