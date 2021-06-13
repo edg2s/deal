@@ -14,8 +14,7 @@ Cards.DroppableView.prototype.isDroppable = function () {
 	return true;
 };
 
-Cards.DroppableView.prototype.drop = function () {
-};
+Cards.DroppableView.prototype.drop = function () {};
 
 Cards.DroppableView.prototype.onDroppableOverOrEnter = function ( e ) {
 	this.droppable = this.isDroppable();
