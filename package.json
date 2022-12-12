@@ -7,7 +7,7 @@
 	},
 	"dependencies": {
 		"ejs": "^3.1.6",
-		"express": "^4.17.1",
+		"express": "^4.17.3",
 		"oojs": "^6.0.0",
 		"shuffle-array": "^1.0.1",
 		"socket.io": "^4.1.2"
